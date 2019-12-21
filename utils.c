@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/16 12:33:49 by rverscho       #+#    #+#                */
-/*   Updated: 2019/12/20 20:26:57 by rverscho      ########   odam.nl         */
+/*   Updated: 2019/12/21 19:43:58 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,22 @@ int		iswhitespace(const char *str, int i)
 	if (str[i] == '\r')
 		return (1);
 	return (0);
+}
+
+void	ft_putnbr_fd(int nb, int fd)
+{
+	unsigned int	nbr;
+
+	if (nb < 0)
+	{
+		ft_putchar_fd('-', fd);
+		nbr = (unsigned int)(nb * -1);
+	}
+	else
+		nbr = (unsigned int)nb;
+	if (nbr >= 10)
+		ft_putnbr_fd(nbr / 10, fd);
+	ft_putchar_fd((char)(nbr % 10 + 48), fd);
 }
 
 int			ft_atoi(const char *str)
@@ -179,4 +195,24 @@ size_t	ft_intlen(const char *str)
 		i++;
 	}
 	return (len);
+}
+
+int		getintlen(int n)
+{
+	int i;
+
+	i = 0;
+	if (n < 0)
+	{
+		n = n * -1;
+		i++;
+	}
+	while (n >= 10)
+	{
+		n = n / 10;
+		i++;
+	}
+	if (n >= 1 && n <= 9)
+		i++;
+	return (i);
 }

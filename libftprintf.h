@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/13 15:53:32 by rverscho       #+#    #+#                */
-/*   Updated: 2019/12/20 18:31:02 by rverscho      ########   odam.nl         */
+/*   Updated: 2019/12/21 19:44:18 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,9 @@ t_flag			*empty_flag(void);
 
 int main ();
 
+void			width_handler_str(t_flag *flags, va_list args, char *data);
+void			width_handler_num(t_flag *flags, va_list args, int data);
+
 void			ft_putchar_fd(char c, int fd);
 int				ft_printf(const char *str, ...);
 //void			ft_printf_handeler(char *str, int i,
@@ -48,6 +51,7 @@ int				ft_printf(const char *str, ...);
 void			ft_main_flag_hand(char *str, t_flag *flags, va_list args);
 void			ft_flag_handeler(char *str, t_flag *flags, va_list args);
 
+void			ft_putnbr_fd(int nb, int fd);
 int				ft_atoi(const char *str);
 char			*ft_substr(char *s, unsigned int start, size_t len);
 void			ft_putstr_fd(char *s, int fd);
@@ -62,6 +66,8 @@ void make_i(t_flag *flags, char *str, va_list args);
 void make_u(t_flag *flags, char *str, va_list args);
 void make_x(t_flag *flags, char *str, va_list args);
 void make_xx(t_flag *flags, char *str, va_list args);
+
+int				getintlen(int n);
 
 int				iswhitespace(const char *str, int i);
 int				is_specifier(const char *str, int i);

@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/01 14:52:32 by rverscho       #+#    #+#                */
-/*   Updated: 2019/12/20 21:55:02 by rverscho      ########   odam.nl         */
+/*   Updated: 2019/12/21 20:03:42 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,10 @@ int	ft_printf(const char *str, ...)
 		}
 		if (str[flags->index] == '%' && str[flags->index + 1] != '%')
 		{
+			flags->index++;
 			ft_main_flag_hand((char*)str, flags, args);
 			write_de_moeder(flags, (char*)str, args);
+			flags = empty_flag();
 		}
 		if (str[flags->index] != '%')
 			ft_putchar_fd(str[flags->index], 1);
