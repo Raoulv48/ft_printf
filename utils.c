@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/16 12:33:49 by rverscho       #+#    #+#                */
-/*   Updated: 2019/12/21 19:43:58 by rverscho      ########   odam.nl         */
+/*   Updated: 2019/12/22 15:32:59 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int		is_specifier(const char *str, int i)
 	if (str[i] == 'p')
 		return (0);
 	if (str[i] == 'i')
+		return (0);
+	if (str[i] == 'd')
 		return (0);
 	if (str[i] == 'u')
 		return (0);

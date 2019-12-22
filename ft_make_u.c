@@ -6,13 +6,22 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/20 17:41:09 by rverscho       #+#    #+#                */
-/*   Updated: 2019/12/20 18:20:28 by rverscho      ########   odam.nl         */
+/*   Updated: 2019/12/22 17:22:14 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-void make_u(t_flag *flags, char *str, va_list args)
+void make_u(t_flag *flags, va_list args)
 {
-	ft_putstr_fd((char*)args, 1);
+	unsigned int	data;
+	int				i;
+
+	i = 0;
+	data = va_arg(args, unsigned int);
+	if (flags->width != 0)
+		width_handler_num(flags, data);
+	else
+		ft_putnbr_fd(data, 1);
+	flags = empty_flag();
 }

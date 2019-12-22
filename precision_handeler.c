@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   width_handeler.c                                   :+:    :+:            */
+/*   precision_handeler.c                               :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/12/21 17:01:58 by rverscho       #+#    #+#                */
-/*   Updated: 2019/12/22 18:44:55 by rverscho      ########   odam.nl         */
+/*   Created: 2019/12/22 17:34:51 by rverscho       #+#    #+#                */
+/*   Updated: 2019/12/22 18:22:48 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-void	add_spacing_num(t_flag *flags, int data)
+void	add_precision_num(t_flag *flags, int data)
 {
 	int i;
 	int len;
@@ -22,12 +22,12 @@ void	add_spacing_num(t_flag *flags, int data)
 	len = getintlen(data);
 	i = 0;
 	// calc length of var, 
-	if (flags->flag == '0' || flags->precision_bool == 1)
+	if (flags->precision_bool == 1)
 		towrite = '0';
-	if (flags->flag == '-' && flags->precision_bool != 1)
+	if (flags->flag == '-')
 	{
 		ft_putnbr_fd(data, 1);
-		while (i < flags->width - len)
+		while (i < flags->precision - len)
 		{
 			write(1, &towrite, 1);
 			i++;
@@ -35,26 +35,16 @@ void	add_spacing_num(t_flag *flags, int data)
 	}
 	else
 	{
-		while (flags->width - len > 0)
+		while (i < flags->precision - len)
 		{
-			if (flags->width - 1 == flags->precision && flags->sign == '-')
-			{
-				ft_putchar_fd('-', 1);
-				flags->sign = '+';
-			}
-			else if (flags->width > flags->precision)
-				ft_putchar_fd(' ', 1);
-			// if (flags->width == flags->precision && data < 0)
-			// 	ft_putchar_fd('-', 1);
-			else
-				write(1, &towrite, 1);
-			flags->width--;
+			write(1, &towrite, 1);
+			i++;
 		}
 		ft_putnbr_fd(data, 1);
 	}
 }
 
-void	add_spacing_str(t_flag *flags, char *data)
+void	add_precision_str(t_flag *flags, char *data)
 {
 	int i;
 	int len;
@@ -64,12 +54,12 @@ void	add_spacing_str(t_flag *flags, char *data)
 	len = ft_strlen(data);
 	i = 0;
 	// calc length of var, 
-	if (flags->flag == '0' || flags->precision_bool == 1)
+	if (flags->precision_bool == 1)
 		towrite = '0';
-	if (flags->flag == '-' && flags->precision_bool != 1)
+	if (flags->flag == '-')
 	{
 		write(1, data, 1);
-		while (i < flags->width - len)
+		while (i < flags->precision - len)
 		{
 			write(1, &towrite, 1);
 			i++;
@@ -77,7 +67,7 @@ void	add_spacing_str(t_flag *flags, char *data)
 	}
 	else
 	{
-		while (i < flags->width - len)
+		while (i < flags->precision - len)
 		{
 			write(1, &towrite, 1);
 			i++;
@@ -86,39 +76,39 @@ void	add_spacing_str(t_flag *flags, char *data)
 	}
 }
 //printf("\n test %c\n", flags->conversion);
-void	width_num(t_flag *flags, int data)
+void	precision_num(t_flag *flags, int data)
 {
 	if (flags->flag == ' ')
-		add_spacing_num(flags, data);
+		add_precision_num(flags, data);
 	if (flags->flag == '0')
-		add_spacing_num(flags, data);
+		add_precision_num(flags, data);
 	if (flags->flag == '-')
-		add_spacing_num(flags, data);
+		add_precision_num(flags, data);
 	if (flags->flag == 0)
-		add_spacing_num(flags, data);
+		add_precision_num(flags, data);
 	//if (flags->sign == '+')
 }
 
-void	width_string(t_flag *flags, char *data)
+void	precision_string(t_flag *flags, char *data)
 {
 	if (flags->flag == ' ')
-		add_spacing_str(flags, data);
+		add_precision_str(flags, data);
 	if (flags->flag == '0')
-		add_spacing_str(flags, data);
+		add_precision_str(flags, data);
 	if (flags->flag == '-')
-		add_spacing_str(flags, data);
+		add_precision_str(flags, data);
 	else
-		add_spacing_str(flags, data);
+		add_precision_str(flags, data);
 }
 
-void	width_handler_num(t_flag *flags, int data)
+void	precision_handler_num(t_flag *flags, int data)
 {
 	if (flags->conversion == 'u')
-		width_num(flags, data);
+		precision_num(flags, data);
 	if (flags->conversion == 'd')
-		width_num(flags, data);
+		precision_num(flags, data);
 	if (flags->conversion == 'i')
-		width_num(flags, data);
+		precision_num(flags, data);
 //	if (flags->conversion == 'x')
 
 //	if (flags->conversion == 'X')
@@ -126,10 +116,10 @@ void	width_handler_num(t_flag *flags, int data)
 //	if (flags->conversion == 'p')
 }
 
-void	width_handler_str(t_flag *flags, char *data)
+void	precision_handler_str(t_flag *flags, char *data)
 {
 	if (flags->conversion == 'c')
-		width_string(flags, data);
+		precision_string(flags, data);
 	if (flags->conversion == 's')
-		width_string(flags, data);
+		precision_string(flags, data);
 }

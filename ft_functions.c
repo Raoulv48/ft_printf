@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/16 18:34:16 by rverscho       #+#    #+#                */
-/*   Updated: 2019/12/21 20:02:44 by rverscho      ########   odam.nl         */
+/*   Updated: 2019/12/22 16:28:31 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,11 @@ void	set_flag(char *str, t_flag *flags)
 			flags->flag = '-';
 		if (str[flags->index] == ' ')
 			flags->flag = ' ';
-		if (str[flags->index] == '0')
-			flags->flag = '0';
+		if (flags->flag != '-')
+		{
+			if (str[flags->index] == '0')
+				flags->flag = '0';
+		}
 		if (str[flags->index] == '#')
 			flags->flag = '#';
 		flags->index++;
@@ -39,6 +42,7 @@ void	set_width(char *str, t_flag *flags, va_list args)
 		start = va_arg(args, int);
 		if (start < 0)
 		{
+			flags->flag = '-';
 			start *= -1;
 			flags->width = start;
 		}
@@ -82,7 +86,7 @@ void	set_precision(char *str, t_flag *flags, va_list args)
 		flags->precision_bool = 1;
 }
 
-void	set_specifier(char *str, t_flag *flags, va_list args)
+void	set_specifier(char *str, t_flag *flags)
 {
 	if (!is_specifier(str, flags->index))
 		flags->conversion = str[flags->index];
