@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/20 17:41:03 by rverscho       #+#    #+#                */
-/*   Updated: 2019/12/22 17:21:32 by rverscho      ########   odam.nl         */
+/*   Updated: 2019/12/27 18:24:25 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,5 @@ void make_xx(t_flag *flags, va_list args)
 		width_handler_num(flags, data);
 	else
 		ft_putnbr_fd(data, 1);
-	flags = empty_flag();
+	flags = empty_flag(flags);
 }

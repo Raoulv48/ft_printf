@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/01 14:52:32 by rverscho       #+#    #+#                */
-/*   Updated: 2019/12/22 16:32:05 by rverscho      ########   odam.nl         */
+/*   Updated: 2019/12/27 20:06:54 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ int	ft_printf(const char *str, ...)
 	va_list	args;
 	t_flag	*flags;
 
-	flags = empty_flag();
+	flags = NULL;
+	flags = empty_flag(flags);
 	flags->index = 0;
 	va_start(args, str);
 	while (str[flags->index] != '\0')
@@ -61,5 +62,5 @@ int	ft_printf(const char *str, ...)
 			ft_main_flag_hand((char*)str, flags, args);
 	}
 	va_end(args);
-	return (flags->index);
+	return (flags->counter);
 }

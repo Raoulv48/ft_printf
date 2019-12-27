@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/16 18:34:16 by rverscho       #+#    #+#                */
-/*   Updated: 2019/12/22 16:28:31 by rverscho      ########   odam.nl         */
+/*   Updated: 2019/12/27 17:58:12 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	set_width(char *str, t_flag *flags, va_list args)
 			flags->index++;
 		flags->width = ft_atoi(ft_substr(str, start, flags->index));
 	}
-	if (flags->width != 0)
+	//if (flags->width != 0)
 		flags->width_bool = 1;
 }
 
@@ -82,7 +82,7 @@ void	set_precision(char *str, t_flag *flags, va_list args)
 			flags->index++;
 		flags->precision = ft_atoi(ft_substr(str, start, flags->index));
 	}
-	if (flags->precision > 0)
+	//if (flags->precision > 0)
 		flags->precision_bool = 1;
 }
 

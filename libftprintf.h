@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/13 15:53:32 by rverscho       #+#    #+#                */
-/*   Updated: 2019/12/22 17:37:23 by rverscho      ########   odam.nl         */
+/*   Updated: 2019/12/27 20:04:42 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,11 @@ typedef struct	s_flag
 	int			precision;
 	t_bool		precision_bool;
 	char		conversion;
+	t_bool		printed;
+	int			counter;
 }				t_flag;
 
-t_flag			*empty_flag(void);
+t_flag			*empty_flag(t_flag *empty);
 
 int main ();
 

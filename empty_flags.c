@@ -6,16 +6,23 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/20 16:31:12 by rverscho       #+#    #+#                */
-/*   Updated: 2019/12/20 16:41:43 by rverscho      ########   odam.nl         */
+/*   Updated: 2019/12/27 20:06:08 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-t_flag	*empty_flag(void)
+t_flag	*empty_flag(t_flag *empty)
 {
-	t_flag	*empty;
+	int counter;
+	int index;
 
+	if (empty)
+	{
+		index = empty->index;
+		counter = empty->counter;
+		free(empty);
+	}
 	empty = malloc(sizeof(t_flag));
 	if (empty == NULL)
 		return (NULL);
@@ -26,5 +33,7 @@ t_flag	*empty_flag(void)
 	empty->precision_bool = 0;
 	empty->precision = 0;
 	empty->conversion = 0;
+	empty->counter = counter;
+	empty->index = index;
 	return (empty);
 }

@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/21 17:01:58 by rverscho       #+#    #+#                */
-/*   Updated: 2019/12/22 18:44:55 by rverscho      ########   odam.nl         */
+/*   Updated: 2019/12/27 20:34:13 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	add_spacing_num(t_flag *flags, int data)
 		}
 		ft_putnbr_fd(data, 1);
 	}
+	flags->counter = i + len;
 }
 
 void	add_spacing_str(t_flag *flags, char *data)
@@ -64,11 +65,21 @@ void	add_spacing_str(t_flag *flags, char *data)
 	len = ft_strlen(data);
 	i = 0;
 	// calc length of var, 
-	if (flags->flag == '0' || flags->precision_bool == 1)
-		towrite = '0';
+	// if (flags->flag == '0' || flags->precision_bool == 1)
+	// 	towrite = '0';
 	if (flags->flag == '-' && flags->precision_bool != 1)
 	{
-		write(1, data, 1);
+		write(1, data, len);
+		while (i < flags->width - len)
+		{
+			write(1, &towrite, 1);
+			i++;
+		}
+	}
+	// new for fix
+	else if (flags->flag == '-' && flags->precision_bool == 1)
+	{
+		write(1, data, len);
 		while (i < flags->width - len)
 		{
 			write(1, &towrite, 1);
@@ -82,9 +93,30 @@ void	add_spacing_str(t_flag *flags, char *data)
 			write(1, &towrite, 1);
 			i++;
 		}
-		write(1, data, 1);
+		write(1, data, len);
 	}
+	flags->counter = i + len;
 }
+
+void	add_spacing_str_smaller_precision(t_flag *flags, char *data)
+{
+	int		i;
+	int		len;
+	char	towrite;
+
+	i = 0;
+	towrite = ' ';
+	len = ft_strlen(data);
+	while (i < flags->width - len || flags->precision + i < flags->width)
+	{
+		write(1, &towrite, 1);
+		i++;
+	}
+	write(1, data, flags->precision);
+	flags->counter = i + len;
+	flags->printed = 1;
+}
+
 //printf("\n test %c\n", flags->conversion);
 void	width_num(t_flag *flags, int data)
 {
@@ -107,7 +139,9 @@ void	width_string(t_flag *flags, char *data)
 		add_spacing_str(flags, data);
 	if (flags->flag == '-')
 		add_spacing_str(flags, data);
-	else
+	if (flags->width > flags->precision && flags->precision_bool == 1 && flags->width_bool == 1)
+		add_spacing_str_smaller_precision(flags, data);
+	if (flags->flag != '-' && flags->flag != '0' && flags->flag != ' ' && flags->printed != 1)
 		add_spacing_str(flags, data);
 }
 

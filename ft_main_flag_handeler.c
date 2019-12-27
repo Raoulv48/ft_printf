@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/16 13:04:01 by rverscho       #+#    #+#                */
-/*   Updated: 2019/12/22 16:32:15 by rverscho      ########   odam.nl         */
+/*   Updated: 2019/12/27 20:06:50 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,6 @@ void	ft_main_flag_hand(char *str, t_flag *flags, va_list args)
 	flags->index++;
 	ft_flag_handeler(str, flags, args);
 	write_de_moeder(flags, args);
+	flags = empty_flag(flags);
 }
 

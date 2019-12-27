@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/20 17:41:19 by rverscho       #+#    #+#                */
-/*   Updated: 2019/12/22 16:40:01 by rverscho      ########   odam.nl         */
+/*   Updated: 2019/12/27 18:19:32 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,16 @@ void	make_s(t_flag *flags, va_list args)
 
 	i = 0;
 	data = va_arg(args, char *);
-	if (flags->width != 0)
-		width_handler_str(flags, data);
+	//if (flags->width != 0 || flags->precision != 0)
+	if (flags->precision_bool != 0 || flags->width_bool != 0)
+	{
+		if (flags->width < flags->precision)
+			precision_handler_str(flags, data);
+		else if (flags->precision_bool != 0 && flags->width_bool == 0)
+			precision_handler_str(flags, data);
+		else
+			width_handler_str(flags, data);
+	}
 	else
 		ft_putstr_fd(data, 1);
-	flags = empty_flag();
 }

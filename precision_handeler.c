@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/22 17:34:51 by rverscho       #+#    #+#                */
-/*   Updated: 2019/12/22 18:22:48 by rverscho      ########   odam.nl         */
+/*   Updated: 2019/12/27 18:14:43 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,18 @@ void	add_precision_str(t_flag *flags, char *data)
 		write(1, data, 1);
 	}
 }
+
+void	add_precision_str_no_flag(t_flag *flags, char *data)
+{
+	int		len;
+
+	len = ft_strlen(data);
+	if (len < flags->precision)
+		write(1, data, len);
+	else
+		write(1, data, flags->precision);
+}
+
 //printf("\n test %c\n", flags->conversion);
 void	precision_num(t_flag *flags, int data)
 {
@@ -97,8 +109,8 @@ void	precision_string(t_flag *flags, char *data)
 		add_precision_str(flags, data);
 	if (flags->flag == '-')
 		add_precision_str(flags, data);
-	else
-		add_precision_str(flags, data);
+	if (flags->flag == 0)
+		add_precision_str_no_flag(flags, data);
 }
 
 void	precision_handler_num(t_flag *flags, int data)
