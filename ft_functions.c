@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/16 18:34:16 by rverscho       #+#    #+#                */
-/*   Updated: 2019/12/27 17:58:12 by rverscho      ########   odam.nl         */
+/*   Updated: 2019/12/28 18:14:34 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ void	set_flag(char *str, t_flag *flags)
 			flags->sign = '+';
 		if (str[flags->index] == '-')
 			flags->flag = '-';
-		if (str[flags->index] == ' ')
-			flags->flag = ' ';
 		if (flags->flag != '-')
 		{
+			if (str[flags->index] == ' ')
+			flags->flag = ' ';
 			if (str[flags->index] == '0')
 				flags->flag = '0';
 		}

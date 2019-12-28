@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/20 16:31:12 by rverscho       #+#    #+#                */
-/*   Updated: 2019/12/27 20:06:08 by rverscho      ########   odam.nl         */
+/*   Updated: 2019/12/28 15:12:02 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,6 @@ t_flag	*empty_flag(t_flag *empty)
 	empty->conversion = 0;
 	empty->counter = counter;
 	empty->index = index;
+	empty->printed = 0;
 	return (empty);
 }

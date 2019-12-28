@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/20 17:41:01 by rverscho       #+#    #+#                */
-/*   Updated: 2019/12/27 18:24:41 by rverscho      ########   odam.nl         */
+/*   Updated: 2019/12/28 19:58:37 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void make_d(t_flag *flags, va_list args)
 	data = va_arg(args, int);
 	if (data < 0)
 	{
-		data = data * -1;
-		flags->sign = '-';
+	 	data = data * -1;
+	 	flags->sign = '-';
 	}
 	if (flags->width != 0 || flags->precision != 0)
 	{
@@ -32,6 +32,10 @@ void make_d(t_flag *flags, va_list args)
 			width_handler_num(flags, data);
 	}
 	else
+	{
+		if (flags->sign == '+'|| flags->sign == '-')
+			ft_putchar_fd(flags->sign, 1);
 		ft_putnbr_fd(data, 1);
-	flags = empty_flag(flags);
+	}
+	//flags = empty_flag(flags);
 }

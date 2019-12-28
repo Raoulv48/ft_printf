@@ -6,13 +6,45 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/22 17:34:51 by rverscho       #+#    #+#                */
-/*   Updated: 2019/12/27 18:14:43 by rverscho      ########   odam.nl         */
+/*   Updated: 2019/12/28 20:17:32 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
 void	add_precision_num(t_flag *flags, int data)
+// {
+// 	int i;
+// 	int len;
+// 	char towrite;
+
+// 	towrite = ' ';
+// 	len = getintlen(data);
+// 	i = 0;
+// 	// calc length of var, 
+// 	if (flags->precision_bool == 1)
+// 		towrite = '0';
+// 	if (flags->flag == '-')
+// 	{
+// 		ft_putnbr_fd(data, 1);
+// 		while (i < flags->precision - len)
+// 		{
+// 			write(1, &towrite, 1);
+// 			i++;
+// 		}
+// 	}
+// 	else
+// 	{
+// 		while (i < flags->precision - len)
+// 		{
+// 			write(1, &towrite, 1);
+// 			i++;
+// 		}
+// 		ft_putnbr_fd(data, 1);
+// 	}
+// }
+
+
 {
 	int i;
 	int len;
@@ -20,14 +52,18 @@ void	add_precision_num(t_flag *flags, int data)
 
 	towrite = ' ';
 	len = getintlen(data);
+	if (len == 0)
+		len++;
+	if (flags->sign == '+' || flags->sign == '-')
+		len++;
 	i = 0;
 	// calc length of var, 
-	if (flags->precision_bool == 1)
+	if (flags->flag == '0' || flags->precision_bool == 1)
 		towrite = '0';
-	if (flags->flag == '-')
+	if (flags->flag == '-' && flags->precision_bool != 1)
 	{
 		ft_putnbr_fd(data, 1);
-		while (i < flags->precision - len)
+		while (i < flags->width - len)
 		{
 			write(1, &towrite, 1);
 			i++;
@@ -35,13 +71,24 @@ void	add_precision_num(t_flag *flags, int data)
 	}
 	else
 	{
-		while (i < flags->precision - len)
+		while (flags->precision - len > 0)
 		{
-			write(1, &towrite, 1);
-			i++;
+			if (flags->sign == '-' || flags->sign == '+')
+			{
+				ft_putchar_fd(flags->sign, 1);
+				flags->sign = '0';
+			}
+			else if (flags->precision > len)
+				ft_putchar_fd(towrite, 1);
+			else
+				write(1, &towrite, 1);
+			flags->precision--;
 		}
+		// if (flags->width == len && flags->sign == '+')
+		// 		ft_putchar_fd('+', 1);
 		ft_putnbr_fd(data, 1);
 	}
+	flags->counter = i + len;
 }
 
 void	add_precision_str(t_flag *flags, char *data)
@@ -54,37 +101,44 @@ void	add_precision_str(t_flag *flags, char *data)
 	len = ft_strlen(data);
 	i = 0;
 	// calc length of var, 
-	if (flags->precision_bool == 1)
-		towrite = '0';
-	if (flags->flag == '-')
+	// if (flags->precision_bool == 1)
+	// 	towrite = '0';
+	if (flags->flag == '-' && flags->precision > 0)
 	{
-		write(1, data, 1);
-		while (i < flags->precision - len)
+		write(1, data, len);
+		while (i < flags->width - len)
 		{
 			write(1, &towrite, 1);
 			i++;
 		}
 	}
-	else
+	else if (flags->precision > 0)
 	{
 		while (i < flags->precision - len)
 		{
 			write(1, &towrite, 1);
 			i++;
 		}
-		write(1, data, 1);
+		write(1, data, len);
 	}
 }
 
 void	add_precision_str_no_flag(t_flag *flags, char *data)
 {
-	int		len;
+	int	len;
+	int	i;
 
+	i = 0;
 	len = ft_strlen(data);
 	if (len < flags->precision)
 		write(1, data, len);
 	else
 		write(1, data, flags->precision);
+	while (i + len < flags->width)
+	{
+		ft_putchar_fd(' ', 1);
+		i++;
+	}
 }
 
 //printf("\n test %c\n", flags->conversion);
