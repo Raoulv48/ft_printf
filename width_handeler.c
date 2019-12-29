@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/21 17:01:58 by rverscho       #+#    #+#                */
-/*   Updated: 2019/12/28 19:37:05 by rverscho      ########   odam.nl         */
+/*   Updated: 2019/12/29 18:51:51 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	add_spacing_num(t_flag *flags, int data)
 	len = getintlen(data);
 	if (len == 0)
 		len++;
-	if (flags->sign == '+')
+	if (flags->sign != '\0')
 		len++;
 	i = 0;
 	// calc length of var, 
@@ -30,14 +30,77 @@ void	add_spacing_num(t_flag *flags, int data)
 		towrite = '0';
 	if (flags->flag == '-' && flags->precision_bool != 1)
 	{
+		if (flags->sign != '\0')
+			ft_putchar_fd(flags->sign, 1);
 		ft_putnbr_fd(data, 1);
 		while (i < flags->width - len)
 		{
-			write(1, &towrite, 1);
+			ft_putchar_fd(towrite, 1);
 			i++;
 		}
 	}
-	else
+	else if (flags->flag == '-' && flags->precision_bool == 1 && flags->sign == '\0' && len > flags->precision)
+	{
+		ft_putnbr_fd(data, 1);
+		while (i + len < flags->width)
+		{
+			ft_putchar_fd(' ', 1);
+			i++;
+		}
+	}
+	else if (flags->flag == '-' && flags->precision_bool == 1 && flags->sign == '\0' && len < flags->precision)
+	{
+		if (len == 1)
+			i--;
+		while (i + len < flags->width - (flags->precision - len))
+		{
+			ft_putchar_fd(towrite, 1);
+			i++;
+		}
+		ft_putnbr_fd(data, 1);
+		if (len == 1)
+			i++;
+		while (i + len < flags->width)
+		{
+			ft_putchar_fd(' ', 1);
+			i++;
+		}
+	}
+	else if (flags->flag == '-' && flags->precision_bool == 1  && flags->sign != '\0' && len > flags->precision)
+	{
+		if (flags->sign != '\0')
+			ft_putchar_fd(flags->sign, 1);
+		ft_putnbr_fd(data, 1);
+		while (i + len < flags->width)
+		{
+			ft_putchar_fd(' ', 1);
+			i++;
+		}
+	}
+	else if (flags->flag == '-' && flags->precision_bool == 1  && flags->sign != '\0' && len < flags->precision)
+	{
+		if (flags->sign != '\0')
+		{
+			ft_putchar_fd(flags->sign, 1);
+			i--;
+		}
+		while (i < flags->precision - len)
+		{
+			ft_putchar_fd(towrite, 1);
+			i++;
+		}
+		ft_putnbr_fd(data, 1);
+		if (flags->sign == '-')
+			i++;
+		if (data < 10)
+			i--;
+		while (i - 1 + flags->precision < flags->width)
+		{
+			ft_putchar_fd(' ', 1);
+			i++;
+		}
+	}
+	else if (flags->precision_bool == 1)
 	{
 		while (flags->width - len > 0)
 		{
@@ -46,23 +109,57 @@ void	add_spacing_num(t_flag *flags, int data)
 			// 	ft_putchar_fd('+', 1);
 			// 	flags->sign = '0';
 			// }
-			if (flags->width - 1 == flags->precision && flags->sign == '-')
-			{
-				ft_putchar_fd('-', 1);
-				flags->sign = '0';
-			}
 			// else if (flags->width > flags->precision)
 			// 	ft_putchar_fd(' ', 1);
-			else if (flags->width > len)
-				ft_putchar_fd(' ', 1);
+			if (flags->width > len)
+			{	
+				if (flags->sign != '\0' && flags->precision > flags->width - 2)
+				{
+					ft_putchar_fd(flags->sign, 1);
+					flags->sign = '\0';
+					len--;
+				}
+				else if (flags->width - flags->precision > 0)
+					ft_putchar_fd(' ', 1);
+				else
+					ft_putchar_fd(towrite, 1);
+			}
 			// if (flags->width == flags->precision && data < 0)
 			// 	ft_putchar_fd('-', 1);
 			else
-				write(1, &towrite, 1);
+				ft_putchar_fd(towrite, 1);
 			flags->width--;
 		}
-		if (flags->width == len && flags->sign == '+')
-				ft_putchar_fd('+', 1);
+		if (flags->sign != '\0')
+				ft_putchar_fd(flags->sign, 1);
+		ft_putnbr_fd(data, 1);
+	}
+	else if (flags->precision_bool == 0)
+	{
+		while (flags->width - len > 0)
+		{
+			if (flags->sign != '\0' && towrite == '0')
+			{
+				ft_putchar_fd(flags->sign, 1);
+				flags->sign = '\0';
+			}
+			// if (flags->width == len && flags->sign == '+')
+			// {
+			// 	ft_putchar_fd('+', 1);
+			// 	flags->sign = '0';
+			// }
+			// else if (flags->width > flags->precision)
+			// 	ft_putchar_fd(' ', 1);
+			if (flags->width > len)
+				ft_putchar_fd(towrite, 1);
+			// if (flags->width == flags->precision && data < 0)
+			// 	ft_putchar_fd('-', 1);
+			else
+				ft_putchar_fd(towrite, 1);
+			flags->width--;
+		}
+		if (flags->sign != '\0')
+				ft_putchar_fd(flags->sign, 1);
 		ft_putnbr_fd(data, 1);
 	}
 	flags->counter = i + len;
@@ -85,7 +182,7 @@ void	add_spacing_str(t_flag *flags, char *data)
 		write(1, data, len);
 		while (i < flags->width - len)
 		{
-			write(1, &towrite, 1);
+			ft_putchar_fd(towrite, 1);
 			i++;
 		}
 	}
@@ -115,7 +212,7 @@ void	add_spacing_str(t_flag *flags, char *data)
 		write(1, data, flags->precision);
 		while (i + flags->precision < flags->width)
 		{
-			write(1, &towrite, 1);
+			ft_putchar_fd(towrite, 1);
 			i++;
 		}
 	}
@@ -124,7 +221,7 @@ void	add_spacing_str(t_flag *flags, char *data)
 		write(1, data, flags->precision);
 		while (i + flags->precision < flags->width)
 		{
-			write(1, &towrite, 1);
+			ft_putchar_fd(towrite, 1);
 			i++;
 		}
 	}
@@ -148,7 +245,7 @@ void	add_spacing_str(t_flag *flags, char *data)
 			write(1, data, len);
 			while (i < flags->width - len)
 			{
-				write(1, &towrite, 1);
+				ft_putchar_fd(towrite, 1);
 				i++;
 			}
 		}
@@ -157,7 +254,7 @@ void	add_spacing_str(t_flag *flags, char *data)
 			write(1, data, flags->precision);
 			while (i + flags->precision < flags->width)
 			{
-				write(1, &towrite, 1);
+				ft_putchar_fd(towrite, 1);
 				i++;
 			}
 		}
@@ -165,7 +262,7 @@ void	add_spacing_str(t_flag *flags, char *data)
 		{
 			while (i < flags->width - len)
 			{
-				write(1, "0", 1);
+				ft_putchar_fd('0', 1);
 				i++;
 			}
 			write(1, data, len);
@@ -176,7 +273,7 @@ void	add_spacing_str(t_flag *flags, char *data)
 	{
 		while (i < flags->width - len)
 		{
-			write(1, &towrite, 1);
+			ft_putchar_fd(towrite, 1);
 			i++;
 		}
 		write(1, data, len);
@@ -196,7 +293,7 @@ void	add_spacing_str_smaller_precision(t_flag *flags, char *data)
 	len = ft_strlen(data);
 	while (i < flags->width - len || flags->precision + i < flags->width)
 	{
-		write(1, &towrite, 1);
+		ft_putchar_fd(towrite, 1);
 		i++;
 	}
 	if (len < flags->precision)

@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/20 17:41:01 by rverscho       #+#    #+#                */
-/*   Updated: 2019/12/28 19:58:37 by rverscho      ########   odam.nl         */
+/*   Updated: 2019/12/29 20:08:08 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,48 @@ void make_d(t_flag *flags, va_list args)
 	}
 	else
 	{
-		if (flags->sign == '+'|| flags->sign == '-')
-			ft_putchar_fd(flags->sign, 1);
+		if (flags->flag == ' ')
+		{
+			if (flags->sign != '-')
+				ft_putchar_fd(' ', 1);
+			else
+				ft_putchar_fd('-', 1);
+		}
+		else if (flags->sign == '+'|| flags->sign == '-')
+				ft_putchar_fd(flags->sign, 1);
 		ft_putnbr_fd(data, 1);
 	}
-	//flags = empty_flag(flags);
 }
+
+// {
+// 	int	data;
+// 	int	i;
+
+// 	i = 0;
+// 	data = va_arg(args, int);
+// 	if (data < 0)
+// 	{
+// 		data = data * -1;
+// 		flags->sign = '-';
+// 	}
+// 	if (flags->flag == ' ')
+// 	{
+// 		if (flags->sign != '-')
+// 			ft_putchar_fd(' ', 1);
+// 		else
+// 			ft_putchar_fd('-', 1);
+// 	}
+// 	if (flags->width != 0 || flags->precision != 0)
+// 	{
+// 		if (flags->width < flags->precision)
+// 			precision_handler_num(flags, data);
+// 		else
+// 			width_handler_num(flags, data);
+// 	}
+// 	else
+// 	{
+// 		if (flags->sign == '+' || flags->sign == '-')
+// 			ft_putchar_fd(flags->sign, 1);
+// 		ft_putnbr_fd(data, 1);
+// 	}
+// }

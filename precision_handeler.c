@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/22 17:34:51 by rverscho       #+#    #+#                */
-/*   Updated: 2019/12/28 20:17:32 by rverscho      ########   odam.nl         */
+/*   Updated: 2019/12/29 16:35:25 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,9 @@ void	add_precision_num(t_flag *flags, int data)
 	len = getintlen(data);
 	if (len == 0)
 		len++;
-	if (flags->sign == '+' || flags->sign == '-')
+	if (flags->sign != '\0')
 		len++;
 	i = 0;
-	// calc length of var, 
 	if (flags->flag == '0' || flags->precision_bool == 1)
 		towrite = '0';
 	if (flags->flag == '-' && flags->precision_bool != 1)
@@ -65,27 +64,24 @@ void	add_precision_num(t_flag *flags, int data)
 		ft_putnbr_fd(data, 1);
 		while (i < flags->width - len)
 		{
-			write(1, &towrite, 1);
+			ft_putchar_fd(towrite, 1);
 			i++;
 		}
 	}
 	else
 	{
-		while (flags->precision - len > 0)
+		while (flags->precision > 0)
 		{
 			if (flags->sign == '-' || flags->sign == '+')
 			{
 				ft_putchar_fd(flags->sign, 1);
 				flags->sign = '0';
+				len--;
 			}
-			else if (flags->precision > len)
+			if (flags->precision > len)
 				ft_putchar_fd(towrite, 1);
-			else
-				write(1, &towrite, 1);
 			flags->precision--;
 		}
-		// if (flags->width == len && flags->sign == '+')
-		// 		ft_putchar_fd('+', 1);
 		ft_putnbr_fd(data, 1);
 	}
 	flags->counter = i + len;
@@ -108,7 +104,7 @@ void	add_precision_str(t_flag *flags, char *data)
 		write(1, data, len);
 		while (i < flags->width - len)
 		{
-			write(1, &towrite, 1);
+			ft_putchar_fd(towrite, 1);
 			i++;
 		}
 	}
@@ -116,7 +112,7 @@ void	add_precision_str(t_flag *flags, char *data)
 	{
 		while (i < flags->precision - len)
 		{
-			write(1, &towrite, 1);
+			ft_putchar_fd(towrite, 1);
 			i++;
 		}
 		write(1, data, len);

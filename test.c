@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/16 13:53:24 by rverscho       #+#    #+#                */
-/*   Updated: 2019/12/28 19:50:57 by rverscho      ########   odam.nl         */
+/*   Updated: 2019/12/29 20:34:13 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ int main ()
 	int prf;
 	int ft_prf;
 
-	prf = printf("%.6i\n", -3);
-	ft_prf = ft_printf("%.6i", -3);
+	prf = printf("% 0-8.5ii\n", 34);
+	ft_prf = ft_printf("% 0-8.5i", 34);
 	//printf("%d\n", prf);
 	printf("%d", ft_prf);
 
@@ -38,4 +38,5 @@ int main ()
 	// printf("%25.10i %25.10s\n", nbr, text);
 	// ft_printf("%25.10i %25.10s", nbr, text);
 	//write(1, &a, 1);
+	//while(1){;}
 }
