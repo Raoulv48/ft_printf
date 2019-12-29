@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/20 17:41:13 by rverscho       #+#    #+#                */
-/*   Updated: 2019/12/29 20:33:16 by rverscho      ########   odam.nl         */
+/*   Updated: 2019/12/29 20:47:29 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,14 @@ void make_i(t_flag *flags, va_list args)
 	}
 	else
 	{
-		if (flags->flag == ' ')
+		if (flags->sp_bool == 1)
 		{
 			if (flags->sign != '\0')
 				ft_putchar_fd(flags->sign, 1);
 			else
 				ft_putchar_fd(' ', 1);
 		}
-		else if (flags->sign != '\0' && flags->flag != ' ')
+		else if (flags->sign != '\0' && flags->sp_bool != 1)
 			ft_putchar_fd(flags->sign, 1);
 		ft_putnbr_fd(data, 1);
 	}

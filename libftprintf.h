@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/13 15:53:32 by rverscho       #+#    #+#                */
-/*   Updated: 2019/12/27 20:04:42 by rverscho      ########   odam.nl         */
+/*   Updated: 2019/12/29 20:40:51 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct	s_flag
 	char		conversion;
 	t_bool		printed;
 	int			counter;
+	t_bool		sp_bool;
 }				t_flag;
 
 t_flag			*empty_flag(t_flag *empty);

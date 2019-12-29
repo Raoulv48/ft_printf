@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/21 17:01:58 by rverscho       #+#    #+#                */
-/*   Updated: 2019/12/29 18:51:51 by rverscho      ########   odam.nl         */
+/*   Updated: 2019/12/29 21:41:39 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,18 @@ void	add_spacing_num(t_flag *flags, int data)
 	int len;
 	char towrite;
 
+	i = 0;
 	towrite = ' ';
 	len = getintlen(data);
 	if (len == 0)
 		len++;
 	if (flags->sign != '\0')
 		len++;
-	i = 0;
-	// calc length of var, 
+	if (flags->sp_bool == 1 && flags->sign != '-')
+	{
+		i++;
+		ft_putchar_fd(' ', 1);
+	}
 	if (flags->flag == '0' || flags->precision_bool == 1)
 		towrite = '0';
 	if (flags->flag == '-' && flags->precision_bool != 1)
@@ -99,6 +103,44 @@ void	add_spacing_num(t_flag *flags, int data)
 			ft_putchar_fd(' ', 1);
 			i++;
 		}
+	}
+	else if (flags->precision_bool == 0 && flags->sp_bool == 1 && flags->flag != '0')
+	{
+		while (i + len < flags->width)
+		{
+			if (flags->sign != '\0' && i == flags->width - len)
+			{
+				ft_putchar_fd(flags->sign, 1);
+				flags->sign = '\0';
+			}
+			if (flags->width > i + len)
+				ft_putchar_fd(towrite, 1);
+			else
+				ft_putchar_fd(towrite, 1);
+			i++;
+		}
+		if (flags->sign != '\0')
+				ft_putchar_fd(flags->sign, 1);
+		ft_putnbr_fd(data, 1);
+	}
+	else if (flags->precision_bool == 0 && flags->sp_bool == 1 && flags->flag == '0')
+	{
+		while (i + len < flags->width)
+		{
+			if (flags->sign != '\0')
+			{
+				ft_putchar_fd(flags->sign, 1);
+				flags->sign = '\0';
+			}
+			if (flags->width > i + len)
+				ft_putchar_fd(towrite, 1);
+			else
+				ft_putchar_fd(towrite, 1);
+			i++;
+		}
+		if (flags->sign != '\0')
+				ft_putchar_fd(flags->sign, 1);
+		ft_putnbr_fd(data, 1);
 	}
 	else if (flags->precision_bool == 1)
 	{

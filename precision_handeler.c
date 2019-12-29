@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/22 17:34:51 by rverscho       #+#    #+#                */
-/*   Updated: 2019/12/29 16:35:25 by rverscho      ########   odam.nl         */
+/*   Updated: 2019/12/29 21:39:09 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,18 @@ void	add_precision_num(t_flag *flags, int data)
 	int len;
 	char towrite;
 
+	i = 0;
 	towrite = ' ';
 	len = getintlen(data);
 	if (len == 0)
 		len++;
 	if (flags->sign != '\0')
 		len++;
-	i = 0;
+	if (flags->sp_bool == 1 && flags->sign != '-' && flags->sign != '+')
+	{
+		i++;
+		ft_putchar_fd(' ', 1);
+	}
 	if (flags->flag == '0' || flags->precision_bool == 1)
 		towrite = '0';
 	if (flags->flag == '-' && flags->precision_bool != 1)
