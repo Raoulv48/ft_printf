@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/16 18:34:16 by rverscho       #+#    #+#                */
-/*   Updated: 2019/12/29 20:41:40 by rverscho      ########   odam.nl         */
+/*   Updated: 2019/12/30 21:11:21 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,9 @@ void	set_precision(char *str, t_flag *flags, va_list args)
 	{
 		start = va_arg(args, int);
 		if (start < 0)
-			flags->precision = 0;
+			flags->prec = 0;
 		else
-			flags->precision = start;
+			flags->prec = start;
 		flags->index += 2;
 	}
 	else
@@ -80,10 +80,10 @@ void	set_precision(char *str, t_flag *flags, va_list args)
 		start = flags->index;
 		while (is_num(str, flags->index))
 			flags->index++;
-		flags->precision = ft_atoi(ft_substr(str, start, flags->index));
+		flags->prec = ft_atoi(ft_substr(str, start, flags->index));
 	}
-	//if (flags->precision > 0)
-		flags->precision_bool = 1;
+	//if (flags->prec > 0)
+		flags->prec_bool = 1;
 }
 
 void	set_specifier(char *str, t_flag *flags)

@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/20 16:31:12 by rverscho       #+#    #+#                */
-/*   Updated: 2019/12/30 12:45:08 by rverscho      ########   odam.nl         */
+/*   Updated: 2019/12/30 21:11:54 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,12 @@ t_flag	*create_flag(t_flag *empty)
 	empty->width = 0;
 	empty->width_bool = 0;
 	empty->sign = 0;
-	empty->precision_bool = 0;
-	empty->precision = 0;
+	empty->prec_bool = 0;
+	empty->prec = 0;
 	empty->conversion = 0;
 	empty->printed = 0;
 	empty->sp_bool = 0;
+	empty->fit = 0;
 	return (empty);
 }
 
@@ -35,11 +36,12 @@ t_flag	*empty_flag(t_flag *empty)
 	empty->width = 0;
 	empty->width_bool = 0;
 	empty->sign = 0;
-	empty->precision_bool = 0;
-	empty->precision = 0;
+	empty->prec_bool = 0;
+	empty->prec = 0;
 	empty->conversion = 0;
 	empty->printed = 0;
 	empty->sp_bool = 0;
+	empty->fit = 0;
 	return (empty);
 }
 
@@ -61,7 +63,7 @@ t_flag	*empty_flag(t_flag *empty)
 // 	empty->width = 0;
 // 	empty->width_bool = 0;
 // 	empty->sign = 0;
-// 	empty->precision_bool = 0;
+// 	empty->prec_bool = 0;
 // 	empty->precision = 0;
 // 	empty->conversion = 0;
 // 	empty->counter = counter;

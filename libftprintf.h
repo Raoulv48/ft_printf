@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/13 15:53:32 by rverscho       #+#    #+#                */
-/*   Updated: 2019/12/30 17:35:55 by rverscho      ########   odam.nl         */
+/*   Updated: 2019/12/30 22:14:05 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,60 @@ typedef struct	s_flag
 	char		sign;
 	int			width;
 	t_bool		width_bool;
-	int			precision;
-	t_bool		precision_bool;
+	int			prec;
+	t_bool		prec_bool;
 	char		conversion;
 	t_bool		printed;
 	int			counter;
 	t_bool		sp_bool;
+	//restruct
+	int			i;
+	int			len;
+	char		towrite;
+	t_bool		fit;
+	//
 }				t_flag;
 
 t_flag			*create_flag(t_flag *empty);
 t_flag			*empty_flag(t_flag *empty);
 
+// restructure
+void			width_handler_num(t_flag *flags, int data);
+
+void			add_spacing_num_precision_no_sign(t_flag *flags, int data);
+void			add_spacing_num_precision_plus_sign(t_flag *flags, int data);
+void			add_spacing_num_precision_with_sign_no_fit(t_flag *flags, int data);
+void			add_spacing_num_precision_with_sign(t_flag *flags, int data);
+void			add_spacing_num_no_precision(t_flag *flags, int data);
+void			add_spacing_num_no_precision_zeroflag(t_flag *flags, int data);
+
+void			add_left_num_no_prec(t_flag *flags, int data);
+void			add_left_num_with_len_bigger_prec(t_flag *flags, int data);
+void			add_left_num_with_len_smaller_prec_no_sign(t_flag *flags, int data);
+void			add_left_num_with_len_smaller_prec_with_sign(t_flag *flags, int data);
+void			add_left_num_with_prec(t_flag *flags, int data);
+
+void	add_zero_num(t_flag *flags, int data);
+
+void	add_zero_num_zero_prec(t_flag *flags, int data);
+void	add_zero_num_prec(t_flag *flags, int data);
+
+void	width_handler_str(t_flag *flags, char *data);
+
+void	add_left_no_prec(t_flag *flags, char *data);
+void	add_left_same_prec(t_flag *flags, char *data);
+void	add_left_len_smaller_prec(t_flag *flags, char *data);
+void	add_left_len_bigger_prec(t_flag *flags, char *data);
+
+void	add_zero_str_same(t_flag *flags, char *data);
+void	add_zero_str_len_smaller(t_flag *flags, char *data);
+void	add_spacing_str_smaller_prec(t_flag *flags, char *data);
+void	add_zero_str_prec_not_zero(t_flag *flags, char *data);
+
+/*  not needed?void			width_handler_num_spacing(t_flag *flags, int data); */
+
+
+//
 int main ();
 
 void			precision_handler_str(t_flag *flags, char *data);

@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/22 17:34:51 by rverscho       #+#    #+#                */
-/*   Updated: 2019/12/30 15:29:41 by rverscho      ########   odam.nl         */
+/*   Updated: 2019/12/30 21:12:08 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ void	add_precision_num(t_flag *flags, int data)
 // 	len = getintlen(data);
 // 	i = 0;
 // 	// calc length of var, 
-// 	if (flags->precision_bool == 1)
+// 	if (flags->prec_bool == 1)
 // 		towrite = '0';
 // 	if (flags->flag == '-')
 // 	{
 // 		ft_putnbr_fd(data, 1);
-// 		while (i < flags->precision - len)
+// 		while (i < flags->prec - len)
 // 		{
 // 			write(1, &towrite, 1);
 // 			i++;
@@ -35,7 +35,7 @@ void	add_precision_num(t_flag *flags, int data)
 // 	}
 // 	else
 // 	{
-// 		while (i < flags->precision - len)
+// 		while (i < flags->prec - len)
 // 		{
 // 			write(1, &towrite, 1);
 // 			i++;
@@ -63,9 +63,9 @@ void	add_precision_num(t_flag *flags, int data)
 		i++;
 		ft_putchar_fd(' ', 1);
 	}
-	if (flags->flag == '0' || flags->precision_bool == 1)
+	if (flags->flag == '0' || flags->prec_bool == 1)
 		towrite = '0';
-	if (flags->flag == '-' && flags->precision_bool != 1)
+	if (flags->flag == '-' && flags->prec_bool != 1)
 	{
 		ft_putnbr_fd(data, 1);
 		while (i < flags->width - len)
@@ -76,7 +76,7 @@ void	add_precision_num(t_flag *flags, int data)
 	}
 	else
 	{
-		while (flags->precision > 0)
+		while (flags->prec > 0)
 		{
 			if (flags->sign == '-' || flags->sign == '+')
 			{
@@ -84,9 +84,9 @@ void	add_precision_num(t_flag *flags, int data)
 				flags->sign = '0';
 				len--;
 			}
-			if (flags->precision > len)
+			if (flags->prec > len)
 				ft_putchar_fd(towrite, 1);
-			flags->precision--;
+			flags->prec--;
 		}
 		ft_putnbr_fd(data, 1);
 	}
@@ -103,9 +103,9 @@ void	add_precision_str(t_flag *flags, char *data)
 	len = ft_strlen(data);
 	i = 0;
 	// calc length of var, 
-	// if (flags->precision_bool == 1)
+	// if (flags->prec_bool == 1)
 	// 	towrite = '0';
-	if (flags->flag == '-' && flags->precision > 0)
+	if (flags->flag == '-' && flags->prec > 0)
 	{
 		write(1, data, len);
 		while (i < flags->width - len)
@@ -114,9 +114,9 @@ void	add_precision_str(t_flag *flags, char *data)
 			i++;
 		}
 	}
-	else if (flags->precision > 0)
+	else if (flags->prec > 0)
 	{
-		while (i < flags->precision - len)
+		while (i < flags->prec - len)
 		{
 			ft_putchar_fd(towrite, 1);
 			i++;
@@ -132,10 +132,10 @@ void	add_precision_str_no_flag(t_flag *flags, char *data)
 
 	i = 0;
 	len = ft_strlen(data);
-	if (len < flags->precision)
+	if (len < flags->prec)
 		write(1, data, len);
 	else
-		write(1, data, flags->precision);
+		write(1, data, flags->prec);
 	while (i + len < flags->width)
 	{
 		ft_putchar_fd(' ', 1);
