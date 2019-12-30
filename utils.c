@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/16 12:33:49 by rverscho       #+#    #+#                */
-/*   Updated: 2019/12/28 19:19:33 by rverscho      ########   odam.nl         */
+/*   Updated: 2019/12/30 17:49:28 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,10 +89,7 @@ void	ft_putnbr_fd(int nb, int fd)
 	unsigned int	nbr;
 
 	if (nb < 0)
-	{
-		ft_putchar_fd('-', fd);
 		nbr = (unsigned int)(nb * -1);
-	}
 	else
 		nbr = (unsigned int)nb;
 	if (nbr >= 10)
@@ -127,6 +124,54 @@ int			ft_atoi(const char *str)
 	}
 	return ((int)result * sign);
 }
+
+static int		ft_digitcount(unsigned long a, int base)
+{
+	int	i;
+
+	i = 0;
+	while (a)
+	{
+		a = a / base;
+		i++;
+	}
+	return (i);
+}
+
+static char		*ft_fillstring(char *dest, unsigned long n, int i, int base)
+{
+	unsigned long	b;
+
+	dest[i] = '\0';
+	i--;
+	while (n >= (unsigned long)base)
+	{
+		b = n % base;
+		if (b < 10)
+			dest[i] = b + 48;
+		else if (b >= 10)
+			dest[i] = b + 'a' - 10;
+		n = n / base;
+		i--;
+	}
+	if (n < 10)
+		dest[i] = n + 48;
+	else
+		dest[i] = (n + 'a' - 10);
+	return (dest);
+}
+
+char			*ft_itoa_base(unsigned long n, int base)
+{
+	char	*dest;
+
+	dest = (char*)malloc(sizeof(char) * (ft_digitcount(n, base) + 1));
+	if (!dest)
+		return (0);
+	dest = ft_fillstring(dest, n, ft_digitcount(n, base), base);
+	return (dest);
+}
+
 
 void	ft_putstr_fd(char *s, int fd)
 {

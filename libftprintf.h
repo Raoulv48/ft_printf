@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/13 15:53:32 by rverscho       #+#    #+#                */
-/*   Updated: 2019/12/29 20:40:51 by rverscho      ########   odam.nl         */
+/*   Updated: 2019/12/30 17:35:55 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct	s_flag
 	t_bool		sp_bool;
 }				t_flag;
 
+t_flag			*create_flag(t_flag *empty);
 t_flag			*empty_flag(t_flag *empty);
 
 int main ();
@@ -54,6 +55,7 @@ void			ft_flag_handeler(char *str, t_flag *flags, va_list args);
 
 void			ft_putnbr_fd(int nb, int fd);
 int				ft_atoi(const char *str);
+char			*ft_itoa_base(unsigned long n, int base);
 char			*ft_substr(char *s, unsigned int start, size_t len);
 void			ft_putstr_fd(char *s, int fd);
 size_t			ft_intlen(const char *str);

@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/01 14:52:32 by rverscho       #+#    #+#                */
-/*   Updated: 2019/12/29 21:50:14 by rverscho      ########   odam.nl         */
+/*   Updated: 2019/12/30 12:44:22 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	ft_printf(const char *str, ...)
 	t_flag	*flags;
 
 	flags = NULL;
-	flags = empty_flag(flags);
+	flags = create_flag(flags);
 	flags->index = 0;
 	va_start(args, str);
 	while (str[flags->index] != '\0')

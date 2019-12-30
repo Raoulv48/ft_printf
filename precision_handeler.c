@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/22 17:34:51 by rverscho       #+#    #+#                */
-/*   Updated: 2019/12/29 21:39:09 by rverscho      ########   odam.nl         */
+/*   Updated: 2019/12/30 15:29:41 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	add_precision_num(t_flag *flags, int data)
 	i = 0;
 	towrite = ' ';
 	len = getintlen(data);
+	//len = (len == 0) ? len + 1 : len;
 	if (len == 0)
 		len++;
 	if (flags->sign != '\0')

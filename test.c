@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/16 13:53:24 by rverscho       #+#    #+#                */
-/*   Updated: 2019/12/29 21:40:05 by rverscho      ########   odam.nl         */
+/*   Updated: 2019/12/30 18:32:45 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <limits.h>
+
 int main ()
 {
 	static char *s_hidden = "hi low\0don't print me lol\0";
@@ -24,8 +26,15 @@ int main ()
 	int prf;
 	int ft_prf;
 
-	prf = printf("% 07ii\n", -54);
-	ft_prf = ft_printf("% 07i", -54);
+	prf = printf("%7x\n", 33);
+	ft_prf = ft_printf("%7x", 33);
+	//prf = printf("%1c%2c%3c%4c%1c\n",' ','!','"','#','$');
+	//ft_prf = ft_printf("%1c%2c%3c%4c%1c",' ','!','"','#','$');
+	
+//	prf = printf("%3c%4c%1c\n",'"','#','$');
+//	ft_prf = ft_printf("%3c%4c%1c",'"','#','$');
+
+
 	//printf("%d\n", prf);
 	printf("%d", ft_prf);
 
