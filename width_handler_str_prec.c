@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/30 21:19:48 by rverscho       #+#    #+#                */
-/*   Updated: 2019/12/30 21:35:00 by rverscho      ########   odam.nl         */
+/*   Updated: 2020/01/03 22:16:10 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	add_zero_str_same(t_flag *flags, char *data)
 	{
 		write(1, data, flags->prec);
 	}
+	flags->printed = 1;
 }
 
 void	add_zero_str_len_smaller(t_flag *flags, char *data)
@@ -31,6 +32,7 @@ void	add_zero_str_len_smaller(t_flag *flags, char *data)
 			flags->i++;
 		}
 	}
+	flags->printed = 1;
 }
 
 void	add_spacing_str_smaller_prec(t_flag *flags, char *data)
@@ -75,9 +77,11 @@ void	add_zero_str_prec_not_zero(t_flag *flags, char *data)
 	{
 		while (flags->i < flags->width - flags->len)
 		{
-			ft_putchar_fd('0', 1);
+			ft_putchar_fd(flags->towrite, 1);
+			//ft_putchar_fd('0', 1);
 			flags->i++;
 		}
 		write(1, data, flags->len);
 	}
+	flags->printed = 1;
 }

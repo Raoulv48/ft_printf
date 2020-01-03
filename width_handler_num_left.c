@@ -6,11 +6,37 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/30 20:11:28 by rverscho       #+#    #+#                */
-/*   Updated: 2019/12/30 22:01:28 by rverscho      ########   odam.nl         */
+/*   Updated: 2020/01/03 19:25:40 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
+
+void	add_left_num_space(t_flag *flags, int data)
+{
+	if (flags->flag == '-' && flags->prec_bool == 1 && flags->sign == '\0' && flags->len < flags->prec && flags->sp_bool == 1)
+	{
+		flags->i--;
+		while (flags->i + flags->len < flags->width - (flags->prec - flags->len))
+		{
+			ft_putchar_fd(flags->towrite, 1);
+			flags->i++;
+		}
+		if (flags->len == 1)
+		{
+			flags->i++;
+			ft_putchar_fd(flags->towrite, 1);
+		}
+		ft_putnbr_fd(data, 1);
+		flags->i++;
+		while (flags->i + flags->len < flags->width)
+		{
+			ft_putchar_fd(' ', 1);
+			flags->i++;
+		}
+		flags->printed = 1;
+	}
+}
 
 void	add_left_num_no_prec(t_flag *flags, int data)
 {
@@ -25,6 +51,7 @@ void	add_left_num_no_prec(t_flag *flags, int data)
 			flags->i++;
 		}
 	}
+	flags->printed = 1;
 }
 
 void	add_left_num_with_len_bigger_prec(t_flag *flags, int data)
@@ -49,6 +76,7 @@ void	add_left_num_with_len_bigger_prec(t_flag *flags, int data)
 			flags->i++;
 		}
 	}
+	flags->printed = 1;
 }
 
 void	add_left_num_with_len_smaller_prec_no_sign(t_flag *flags, int data)
@@ -70,6 +98,7 @@ void	add_left_num_with_len_smaller_prec_no_sign(t_flag *flags, int data)
 			ft_putchar_fd(' ', 1);
 			flags->i++;
 		}
+		flags->printed = 1;
 	}
 }
 
@@ -98,6 +127,7 @@ void	add_left_num_with_len_smaller_prec_with_sign(t_flag *flags, int data)
 			flags->i++;
 		}
 	}
+	flags->printed = 1;
 }
 
 void	add_left_num_with_prec(t_flag *flags, int data)
@@ -125,6 +155,7 @@ void	add_left_num_with_prec(t_flag *flags, int data)
 		if (flags->sign != '\0')
 			ft_putchar_fd(flags->sign, 1);
 	}
+	flags->printed = 1;
 	data = 1;//bs
 }
 

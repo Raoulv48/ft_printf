@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/13 15:53:32 by rverscho       #+#    #+#                */
-/*   Updated: 2019/12/30 22:14:05 by rverscho      ########   odam.nl         */
+/*   Updated: 2020/01/03 19:25:28 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ void			add_spacing_num_precision_with_sign_no_fit(t_flag *flags, int data);
 void			add_spacing_num_precision_with_sign(t_flag *flags, int data);
 void			add_spacing_num_no_precision(t_flag *flags, int data);
 void			add_spacing_num_no_precision_zeroflag(t_flag *flags, int data);
+void	add_spacing_num_precision_with_sign_small_width(t_flag *flags, int data);
+void	add_left_num_space(t_flag *flags, int data);
 
 void			add_left_num_no_prec(t_flag *flags, int data);
 void			add_left_num_with_len_bigger_prec(t_flag *flags, int data);
@@ -96,6 +98,7 @@ int				ft_printf(const char *str, ...);
 void			ft_main_flag_hand(char *str, t_flag *flags, va_list args);
 void			ft_flag_handeler(char *str, t_flag *flags, va_list args);
 
+void	starting_space(t_flag *flags);
 void			ft_putnbr_fd(int nb, int fd);
 int				ft_atoi(const char *str);
 char			*ft_itoa_base(unsigned long n, int base);

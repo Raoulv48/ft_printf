@@ -6,105 +6,207 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/22 17:34:51 by rverscho       #+#    #+#                */
-/*   Updated: 2019/12/30 21:12:08 by rverscho      ########   odam.nl         */
+/*   Updated: 2020/01/03 21:02:13 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-void	add_precision_num(t_flag *flags, int data)
-// {
-// 	int i;
-// 	int len;
-// 	char towrite;
-
-// 	towrite = ' ';
-// 	len = getintlen(data);
-// 	i = 0;
-// 	// calc length of var, 
-// 	if (flags->prec_bool == 1)
-// 		towrite = '0';
-// 	if (flags->flag == '-')
-// 	{
-// 		ft_putnbr_fd(data, 1);
-// 		while (i < flags->prec - len)
-// 		{
-// 			write(1, &towrite, 1);
-// 			i++;
-// 		}
-// 	}
-// 	else
-// 	{
-// 		while (i < flags->prec - len)
-// 		{
-// 			write(1, &towrite, 1);
-// 			i++;
-// 		}
-// 		ft_putnbr_fd(data, 1);
-// 	}
-// }
-
-
+void	set_end_for_zero_prec(t_flag *flags, int data)
 {
-	int i;
-	int len;
-	char towrite;
-
-	i = 0;
-	towrite = ' ';
-	len = getintlen(data);
-	//len = (len == 0) ? len + 1 : len;
-	if (len == 0)
-		len++;
-	if (flags->sign != '\0')
-		len++;
-	if (flags->sp_bool == 1 && flags->sign != '-' && flags->sign != '+')
+	if (flags->prec > 0)
 	{
-		i++;
-		ft_putchar_fd(' ', 1);
-	}
-	if (flags->flag == '0' || flags->prec_bool == 1)
-		towrite = '0';
-	if (flags->flag == '-' && flags->prec_bool != 1)
-	{
+		if (flags->sign != '\0')
+			ft_putchar_fd(flags->sign, 1);
 		ft_putnbr_fd(data, 1);
-		while (i < flags->width - len)
-		{
-			ft_putchar_fd(towrite, 1);
-			i++;
-		}
 	}
 	else
 	{
-		while (flags->prec > 0)
-		{
-			if (flags->sign == '-' || flags->sign == '+')
-			{
-				ft_putchar_fd(flags->sign, 1);
-				flags->sign = '0';
-				len--;
-			}
-			if (flags->prec > len)
-				ft_putchar_fd(towrite, 1);
-			flags->prec--;
-		}
-		ft_putnbr_fd(data, 1);
+		(ft_putchar_fd(' ', 1));
+		if (flags->sign != '\0')
+			ft_putchar_fd(flags->sign, 1);
 	}
-	flags->counter = i + len;
 }
+
+void	add_prec_smaller_width(t_flag *flags, int data)
+{
+	while (flags->prec > 0)
+	{
+		if (flags->sign == '-' || flags->sign == '+')
+		{
+			ft_putchar_fd(flags->sign, 1);
+			flags->sign = '0';
+			flags->len--;
+		}
+		if (flags->prec > flags->len)
+			ft_putchar_fd(flags->towrite, 1);
+		flags->prec--;
+	}
+	ft_putnbr_fd(data, 1);
+	flags->counter = flags->i + flags->len;
+	flags->printed = 1;
+}
+
+void	add_prec_nofit(t_flag *flags, int data)
+{
+	if (flags->prec_bool == 1)
+	{
+		while (flags->width - flags->len > flags->i)
+		{
+			if (flags->width > flags->len)
+			{
+				if (flags->sign != '\0' && flags->prec == flags->i && flags->prec > 0)
+				{
+					ft_putchar_fd(flags->sign, 1);
+					flags->sign = '\0';
+					flags->len--;
+				}
+				else if (flags->width - flags->prec > flags->i)
+					ft_putchar_fd(' ', 1);
+				else
+					ft_putchar_fd(flags->towrite, 1);
+			}
+			else
+				ft_putchar_fd(flags->towrite, 1);
+			flags->i++;
+		}
+		if (flags->prec > 0)
+		{
+			if (flags->sign != '\0')
+				ft_putchar_fd(flags->sign, 1);
+			ft_putnbr_fd(data, 1);
+		}
+		else
+		{
+			(ft_putchar_fd(' ', 1));
+			if (flags->sign != '\0')
+				ft_putchar_fd(flags->sign, 1);
+		}
+		flags->printed = 1;
+	}
+}
+
+void	add_prec_fit(t_flag *flags, int data)
+{
+	if (flags->prec_bool == 1)
+	{
+		while (flags->width - flags->len > flags->i)
+		{
+			if (flags->width > flags->len)
+			{
+				if (flags->sign != '\0' && flags->width - flags->prec == flags->i + 1)
+				{
+					ft_putchar_fd(flags->sign, 1);
+					flags->sign = '\0';
+					flags->len--;
+				}
+				else if (flags->width - flags->prec > flags->i)
+					ft_putchar_fd(' ', 1);
+				else
+					ft_putchar_fd(flags->towrite, 1);
+			}
+			else
+				ft_putchar_fd(flags->towrite, 1);
+			flags->i++;
+		}
+		if (flags->sign != '\0')
+			ft_putchar_fd(flags->sign, 1);
+		if (flags->prec > 0)
+			ft_putnbr_fd(data, 1);
+		flags->printed = 1;
+	}
+}
+
+void	add_prec_with_width_fit(t_flag *flags, int data)
+{
+	if (flags->prec_bool == 1)
+	{
+		while (flags->width - flags->len > flags->i)
+		{
+			if (flags->width > flags->len)
+			{
+				if (flags->sign != '\0' && flags->prec == flags->i + 1)
+				{
+					ft_putchar_fd(flags->sign, 1);
+					flags->sign = '\0';
+					flags->len--;
+				}
+				else if (flags->width - flags->prec > flags->i)
+					ft_putchar_fd(' ', 1);
+				else
+					ft_putchar_fd(flags->towrite, 1);
+			}
+			else
+				ft_putchar_fd(flags->towrite, 1);
+			flags->i++;
+		}
+		if (flags->sign != '\0')
+			ft_putchar_fd(flags->sign, 1);
+		if (flags->prec > 0)
+			ft_putnbr_fd(data, 1);
+		flags->printed = 1;
+	}
+}
+
+void	add_prec_with_width_no_fit(t_flag *flags, int data)
+{
+	if (flags->prec_bool == 1)
+	{
+		while (flags->width - flags->len > 0)
+		{
+			if (flags->width > flags->len)
+			{
+				if (flags->sign != '\0' && flags->prec > flags->width - 2)
+				{
+					ft_putchar_fd(flags->sign, 1);
+					flags->sign = '\0';
+					flags->len--;
+				}
+				else if (flags->width - flags->prec > 0)
+					ft_putchar_fd(' ', 1);
+				else
+					ft_putchar_fd(flags->towrite, 1);
+			}
+			else
+				ft_putchar_fd(flags->towrite, 1);
+			flags->width--;
+		}
+		if (flags->sign != '\0')
+			ft_putchar_fd(flags->sign, 1);
+		if (flags->prec > 0)
+			ft_putnbr_fd(data, 1);
+		flags->printed = 1;
+	}
+}
+
+void	precision_handler_num(t_flag *flags, int data)
+{
+	if (flags->width_bool == 0 || flags->width < flags->prec)
+		add_prec_smaller_width(flags, data);
+	if (flags->sp_bool == 1 && flags->flag == '-')
+		add_left_num_space(flags, data);
+	if (flags->len < flags->prec && flags->printed == 0)
+		add_prec_fit(flags, data);
+	if (flags->len > flags->prec && flags->printed == 0)
+		add_prec_nofit(flags, data);
+	if (flags->width_bool == 1 && flags->fit == 1 && flags->printed == 0)
+		add_prec_with_width_no_fit(flags, data);
+	if (flags->width_bool == 1 && flags->fit == 0 && flags->printed == 0)
+		add_prec_with_width_fit(flags, data);
+}
+
+
+
 
 void	add_precision_str(t_flag *flags, char *data)
 {
-	int i;
-	int len;
-	char towrite;
+	int 	i;
+	int 	len;
+	char 	towrite;
 
 	towrite = ' ';
 	len = ft_strlen(data);
 	i = 0;
-	// calc length of var, 
-	// if (flags->prec_bool == 1)
-	// 	towrite = '0';
 	if (flags->flag == '-' && flags->prec > 0)
 	{
 		write(1, data, len);
@@ -123,6 +225,7 @@ void	add_precision_str(t_flag *flags, char *data)
 		}
 		write(1, data, len);
 	}
+	flags->printed = 1;
 }
 
 void	add_precision_str_no_flag(t_flag *flags, char *data)
@@ -141,20 +244,7 @@ void	add_precision_str_no_flag(t_flag *flags, char *data)
 		ft_putchar_fd(' ', 1);
 		i++;
 	}
-}
-
-//printf("\n test %c\n", flags->conversion);
-void	precision_num(t_flag *flags, int data)
-{
-	if (flags->flag == ' ')
-		add_precision_num(flags, data);
-	if (flags->flag == '0')
-		add_precision_num(flags, data);
-	if (flags->flag == '-')
-		add_precision_num(flags, data);
-	if (flags->flag == 0)
-		add_precision_num(flags, data);
-	//if (flags->sign == '+')
+	flags->printed = 1;
 }
 
 void	precision_string(t_flag *flags, char *data)
@@ -167,21 +257,6 @@ void	precision_string(t_flag *flags, char *data)
 		add_precision_str(flags, data);
 	if (flags->flag == 0)
 		add_precision_str_no_flag(flags, data);
-}
-
-void	precision_handler_num(t_flag *flags, int data)
-{
-	if (flags->conversion == 'u')
-		precision_num(flags, data);
-	if (flags->conversion == 'd')
-		precision_num(flags, data);
-	if (flags->conversion == 'i')
-		precision_num(flags, data);
-//	if (flags->conversion == 'x')
-
-//	if (flags->conversion == 'X')
-
-//	if (flags->conversion == 'p')
 }
 
 void	precision_handler_str(t_flag *flags, char *data)

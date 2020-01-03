@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/30 18:59:46 by rverscho       #+#    #+#                */
-/*   Updated: 2019/12/30 22:01:40 by rverscho      ########   odam.nl         */
+/*   Updated: 2020/01/03 20:00:46 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	add_spacing_num_precision_no_sign(t_flag *flags, int data)
 			ft_putchar_fd(' ', 1);
 			flags->i++;
 		}
+		flags->printed = 1;
 	}
 }
 
@@ -47,9 +48,8 @@ void	add_spacing_num_precision_plus_sign(t_flag *flags, int data)
 			{
 				ft_putchar_fd(flags->sign, 1);
 				flags->sign = '\0';
-				flags->i++;
 			}
-			if (flags->width - flags->prec > flags->i)
+			if (flags->width - flags->prec > flags->i + 1)
 				ft_putchar_fd(' ', 1);
 			else
 				ft_putchar_fd(flags->towrite, 1);
@@ -58,6 +58,7 @@ void	add_spacing_num_precision_plus_sign(t_flag *flags, int data)
 		if (flags->sign != '\0')
 			ft_putchar_fd(flags->sign, 1);
 		ft_putnbr_fd(data, 1);
+		flags->printed = 1;
 	}
 }
 
@@ -79,6 +80,31 @@ void	add_spacing_num_precision_with_sign_no_fit(t_flag *flags, int data)
 		if (flags->sign != '\0')
 			ft_putchar_fd(flags->sign, 1);
 		ft_putnbr_fd(data, 1);
+		flags->printed = 1;
+	}
+}
+
+void	add_spacing_num_precision_with_sign_small_width(t_flag *flags, int data)
+{
+	if (flags->prec_bool == 1 && flags->width_bool == 1 && flags->sp_bool == 1 && flags->sign != '\0')
+	{
+		while (flags->i - 1 < flags->prec - flags->len)
+		{
+			if (flags->sign != '\0')
+			{
+				ft_putchar_fd(flags->sign, 1);
+				flags->sign = '\0';
+			}
+			if (flags->width - flags->prec > flags->i)
+				ft_putchar_fd(' ', 1);
+			else
+				ft_putchar_fd(flags->towrite, 1);
+			flags->i++;
+		}
+		if (flags->sign != '\0')
+			ft_putchar_fd(flags->sign, 1);
+		ft_putnbr_fd(data, 1);
+		flags->printed = 1;
 	}
 }
 
@@ -103,6 +129,7 @@ void	add_spacing_num_precision_with_sign(t_flag *flags, int data)
 		if (flags->sign != '\0')
 			ft_putchar_fd(flags->sign, 1);
 		ft_putnbr_fd(data, 1);
+		flags->printed = 1;
 	}
 }
 
@@ -126,6 +153,7 @@ void	add_spacing_num_no_precision(t_flag *flags, int data)
 		if (flags->sign != '\0')
 			ft_putchar_fd(flags->sign, 1);
 		ft_putnbr_fd(data, 1);
+		flags->printed = 1;
 	}
 }
 
@@ -149,5 +177,6 @@ void	add_spacing_num_no_precision_zeroflag(t_flag *flags, int data)
 		if (flags->sign != '\0')
 			ft_putchar_fd(flags->sign, 1);
 		ft_putnbr_fd(data, 1);
+		flags->printed = 1;
 	}
 }

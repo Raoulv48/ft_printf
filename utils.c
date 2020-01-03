@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/16 12:33:49 by rverscho       #+#    #+#                */
-/*   Updated: 2019/12/30 17:49:28 by rverscho      ########   odam.nl         */
+/*   Updated: 2020/01/03 16:09:00 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,15 @@ int		iswhitespace(const char *str, int i)
 	if (str[i] == '\r')
 		return (1);
 	return (0);
+}
+
+void	starting_space(t_flag *flags)
+{
+	if (flags->sp_bool == 1 && flags->sign != '-' && flags->sign != '+')//maybe remove bool
+	{
+		flags->i++;
+		ft_putchar_fd(' ', 1);
+	}
 }
 
 void	ft_putnbr_fd(int nb, int fd)

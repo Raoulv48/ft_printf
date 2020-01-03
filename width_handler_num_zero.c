@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/30 20:45:35 by rverscho       #+#    #+#                */
-/*   Updated: 2019/12/30 22:20:24 by rverscho      ########   odam.nl         */
+/*   Updated: 2020/01/03 16:54:03 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,9 @@ void	add_zero_num_zero_prec(t_flag *flags, int data)
 		}
 		if (flags->sign != '\0')
 			ft_putchar_fd(flags->sign, 1);
+		flags->printed = 1;
+		data = 1; // bss
 	}
-	data = 1;
 }
 
 void	add_zero_num_prec(t_flag *flags, int data)
@@ -66,5 +67,6 @@ void	add_zero_num_prec(t_flag *flags, int data)
 		if (flags->sign != '\0')
 			ft_putchar_fd(flags->sign, 1);
 		ft_putnbr_fd(data, 1);
+		flags->printed = 1;
 	}
 }

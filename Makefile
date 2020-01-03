@@ -6,12 +6,12 @@
 #    By: rverscho <rverscho@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/11/02 19:12:32 by rverscho       #+#    #+#                 #
-#    Updated: 2019/12/30 22:20:50 by rverscho      ########   odam.nl          #
+#    Updated: 2020/01/03 13:54:00 by rverscho      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libftprintf.a
-SRC = empty_flags.c ft_functions.c ft_main_flag_handeler.c \
+SRC = empty_flags.c ft_functions.c ft_main_flag_handeler.c precision_handeler.c\
 	ft_make_c.c ft_make_d.c ft_make_i.c ft_make_p.c \
 	ft_make_s.c ft_make_u.c ft_make_x.c ft_make_Xx.c ft_printf.c utils.c \
 	width_handler_num.c width_handler_num_left.c width_handler_num_spacing.c width_handler_num_zero.c\

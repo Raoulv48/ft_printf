@@ -6,32 +6,24 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/20 17:41:09 by rverscho       #+#    #+#                */
-/*   Updated: 2019/12/30 21:45:26 by rverscho      ########   odam.nl         */
+/*   Updated: 2020/01/03 21:09:14 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-void make_u(t_flag *flags, va_list args)
+void	make_u(t_flag *flags, va_list args)
 {
 	int	data;
-	int	i;
 
-	i = 0;
 	data = va_arg(args, int);
 	if (data < 0)
 	{
-	 	data = data * -1;
-	 	flags->sign = '-';
+		data = data * -1;
+		flags->sign = '-';
 	}
-	if (flags->prec == 0 && flags->prec_bool == 1)
-		flags->counter = 0;
-	if (flags->prec == 0 && flags->prec_bool == 1 && flags->width > 0)
+	if (flags->width != 0 || flags->prec != 0)
 		width_handler_num(flags, data);
-	else if (flags->width != 0 || flags->prec != 0)
-	{
-		width_handler_num(flags, data);
-	}
 	else
 	{
 		if (flags->sp_bool == 1)

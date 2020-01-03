@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/16 13:53:24 by rverscho       #+#    #+#                */
-/*   Updated: 2019/12/30 22:25:04 by rverscho      ########   odam.nl         */
+/*   Updated: 2020/01/03 22:08:07 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,47 @@ int main ()
 	int prf;
 	int ft_prf;
 
-	prf = printf("%-3.7ii\n", 3267);
-	ft_prf = ft_printf("%-3.7i", 3267);
+//Test  348:  i_width_pos_fits_lj_sp
+//Test  349:  i_width_neg_fits_lj_sp
+//Test  350:  i_width_zero_fits_lj_sp
+//i_prec_width_fit_fit_pos_lj_sp
+
+
+	// prf = printf("%10.5ii\n", -216);
+	// ft_prf = ft_printf("%10.5i", -216);
+
+
+	// prf = printf("% 10.5ii\n", -216);
+	// ft_prf = ft_printf("% 10.5i", -216);
+
+	// prf = printf("% 3.7ii\n", -2375);
+	// ft_prf = ft_printf("% 3.7i", -2375);
+
+
+
+	prf = printf("%7.7s%7.7ss\n", "hello", "world");
+	ft_prf = ft_printf("%7.7s%7.7s", "hello", "world");
+
+	// prf = printf("%+5.ii\n", 0);
+	// ft_prf = ft_printf("%+5.i", 0);
+
+
+//important!!!!!!
+	// prf = printf("% 08.5ii\n", 34);
+	// ft_prf = ft_printf("% 08.5i", 34);
+	// prf = printf("% -8.5ii\n", 34);
+	// ft_prf = ft_printf("% -8.5i", 34);
+
+
+
+	// prf = printf("%-3.7ii\n", 3267);
+	// ft_prf = ft_printf("%-3.7i", 3267);
+
+
+	// prf = printf("% -3.7ii\n", 3267);
+	// ft_prf = ft_printf("% -3.7i", 3267);
+
+
 	//prf = printf("%1c%2c%3c%4c%1c\n",' ','!','"','#','$');
 	//ft_prf = ft_printf("%1c%2c%3c%4c%1c",' ','!','"','#','$');
 	
@@ -36,7 +75,8 @@ int main ()
 
 
 	//printf("%d\n", prf);
-	printf("%d", ft_prf);
+	printf("i\n");
+	printf("%i\n", ft_prf);
 
 
 	// prf = printf("%+- 06.04s", s_hidden);
