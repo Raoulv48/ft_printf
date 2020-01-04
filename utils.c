@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/16 12:33:49 by rverscho       #+#    #+#                */
-/*   Updated: 2020/01/03 16:09:00 by rverscho      ########   odam.nl         */
+/*   Updated: 2020/01/04 21:37:57 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,12 @@ void	starting_space(t_flag *flags)
 {
 	if (flags->sp_bool == 1 && flags->sign != '-' && flags->sign != '+')//maybe remove bool
 	{
-		flags->i++;
+		if (flags->len > flags->prec && flags->flag != '0')
+			flags->i++;
+		else if (flags->flag == '0' && flags->width > flags->prec)
+			flags->i++;
+		else if (flags->flag != '-' && flags->width > flags->prec)
+			flags->i++;
 		ft_putchar_fd(' ', 1);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/13 15:53:32 by rverscho       #+#    #+#                */
-/*   Updated: 2020/01/03 19:25:28 by rverscho      ########   odam.nl         */
+/*   Updated: 2020/01/04 16:02:37 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,14 @@ typedef struct	s_flag
 	t_bool		printed;
 	int			counter;
 	t_bool		sp_bool;
+
+	//restruct2.0
+	int			highest;
+	t_bool		bool_sign;
+	t_bool		write_left;
+	t_bool		bb_var;
+	t_bool		bw_var;
+	t_bool		ba_var;
 	//restruct
 	int			i;
 	int			len;
@@ -44,6 +52,15 @@ typedef struct	s_flag
 
 t_flag			*create_flag(t_flag *empty);
 t_flag			*empty_flag(t_flag *empty);
+
+//restruct2.0
+void	fill_struct_to_write_int(t_flag *flags, int data);
+void	write_before_int(t_flag *flags);
+void	write_after_int(t_flag *flags);
+void	set_1_0_for_int(t_flag *fags, int data);
+
+
+
 
 // restructure
 void			width_handler_num(t_flag *flags, int data);
