@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/16 12:33:49 by rverscho       #+#    #+#                */
-/*   Updated: 2020/01/04 21:37:57 by rverscho      ########   odam.nl         */
+/*   Updated: 2020/01/05 19:20:51 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ int			ft_atoi(const char *str)
 	return ((int)result * sign);
 }
 
-static int		ft_digitcount(unsigned long a, int base)
+int		hex_length(unsigned long a, int base)
 {
 	int	i;
 
@@ -179,13 +179,12 @@ char			*ft_itoa_base(unsigned long n, int base)
 {
 	char	*dest;
 
-	dest = (char*)malloc(sizeof(char) * (ft_digitcount(n, base) + 1));
+	dest = (char*)malloc(sizeof(char) * (hex_length(n, base) + 1));
 	if (!dest)
 		return (0);
-	dest = ft_fillstring(dest, n, ft_digitcount(n, base), base);
+	dest = ft_fillstring(dest, n, hex_length(n, base), base);
 	return (dest);
 }
-
 
 void	ft_putstr_fd(char *s, int fd)
 {

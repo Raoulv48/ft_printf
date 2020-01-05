@@ -6,7 +6,7 @@
 #    By: rverscho <rverscho@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/11/02 19:12:32 by rverscho       #+#    #+#                 #
-#    Updated: 2020/01/04 22:09:37 by rverscho      ########   odam.nl          #
+#    Updated: 2020/01/05 19:11:41 by rverscho      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,8 @@ SRC = empty_flags.c ft_functions.c ft_main_flag_handeler.c \
 	ft_make_c.c ft_make_d.c ft_make_i.c ft_make_p.c \
 	ft_make_s.c ft_make_u.c ft_make_x.c ft_make_Xx.c ft_printf.c utils.c \
 	width_handler_str.c width_handler_str_left.c width_handler_str_prec.c \
-	fill_struct_to_write_int.c set_1_0_for_int.c write_after_int.c
+	fill_struct_to_write_int.c set_1_0_for_int.c write_after_int.c \
+	fill_struct_to_write_hex.c
 
 BONUS = empty_flags.o ft_functions.o ft_main_flag_handeler.o \
 	ft_make_c.o ft_make_d.o ft_make_i.o ft_make_p.o \

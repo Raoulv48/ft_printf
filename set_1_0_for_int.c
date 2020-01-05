@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/04 12:54:42 by rverscho       #+#    #+#                */
-/*   Updated: 2020/01/04 21:14:11 by rverscho      ########   odam.nl         */
+/*   Updated: 2020/01/05 21:04:28 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,15 @@ void	set_1_0_for_int(t_flag *flags, int data)
 
 void	set_sign(t_flag *flags)
 {
+	if (flags->hex_bool == 1)
+	{
+		if (flags->width > flags->prec)
+			flags->len += 2;
+		else
+			flags->len -= 2;
+		flags->hex_bool = 0;
+		ft_putstr_fd(flags->hex, 1);
+	}
 	if (flags->bool_sign)
 		ft_putchar_fd(flags->sign, 1);
 	if (flags->flag == '0' && flags->bool_sign == 1)

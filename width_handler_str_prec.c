@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/30 21:19:48 by rverscho       #+#    #+#                */
-/*   Updated: 2020/01/04 22:38:58 by rverscho      ########   odam.nl         */
+/*   Updated: 2020/01/05 17:00:43 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	add_spacing_str_smaller_prec(t_flag *flags, char *data)
 
 void	add_zero_str_prec_not_zero(t_flag *flags, char *data)
 {
-	if (flags->prec > 0)
+	if (flags->prec > 0 && flags->len > flags->prec)
 	{
 		write(1, data, flags->prec);
 		while (flags->i + flags->prec < flags->width)

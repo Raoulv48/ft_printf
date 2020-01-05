@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/16 18:34:16 by rverscho       #+#    #+#                */
-/*   Updated: 2019/12/30 21:11:21 by rverscho      ########   odam.nl         */
+/*   Updated: 2020/01/05 19:51:26 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ void	set_flag(char *str, t_flag *flags)
 		if (str[flags->index] == '-')
 			flags->flag = '-';
 		if (str[flags->index] == ' ')
-				flags->sp_bool = 1;
+			flags->sp_bool = 1;
 		if (flags->flag != '-')
 		{
 			if (str[flags->index] == '0')
 				flags->flag = '0';
 		}
 		if (str[flags->index] == '#')
-			flags->flag = '#';
+			flags->hex_bool = 1;
 		flags->index++;
 	}
 }
