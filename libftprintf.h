@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/13 15:53:32 by rverscho       #+#    #+#                */
-/*   Updated: 2020/01/05 19:58:04 by rverscho      ########   odam.nl         */
+/*   Updated: 2020/01/06 19:29:48 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct	s_flag
 	t_bool		ba_var;
 	char		*hex;
 	t_bool		hex_bool;
+	t_bool		hexwbool;
 	//restruct
 	int			i;
 	int			len;
@@ -63,8 +64,10 @@ void	set_1_0_for_int(t_flag *fags, int data);
 void	fill_struct_to_write_hex(t_flag *flags, unsigned long data);
 int		hex_length(unsigned long a, int base);
 
+void		ft_fillstring(unsigned long data, int base, int i, t_flag *flags);
 
-
+void	ft_toupper(char *str);
+void	ft_tolower(char *str);
 
 // restructure
 void			width_handler_num(t_flag *flags, int data);

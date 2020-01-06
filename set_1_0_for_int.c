@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/04 12:54:42 by rverscho       #+#    #+#                */
-/*   Updated: 2020/01/05 21:04:28 by rverscho      ########   odam.nl         */
+/*   Updated: 2020/01/06 20:57:03 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,12 @@ void	set_1_0_for_int(t_flag *flags, int data)
 
 void	set_sign(t_flag *flags)
 {
-	if (flags->hex_bool == 1)
+	if (flags->hex_bool == 1)// || flags->conversion == 'p')//bad
 	{
-		if (flags->width > flags->prec)
+		//if (flags->conversion == 'p')
+		//	flags->i += 2;//bullshit code fix dit
+		flags->hexwbool = 1;
+		if (flags->width > flags->prec && flags->flag != '-')
 			flags->len += 2;
 		else
 			flags->len -= 2;
@@ -132,6 +135,11 @@ void	write_int_big_width(t_flag *flags)
 			set_sign(flags);
 		else if (flags->flag == '0' && flags->prec_bool == 0)
 			set_sign(flags);
+		else if (flags->hex_bool == 1 && flags->i + flags->len == flags->prec)
+		{
+			flags->hex_bool = 0;
+			ft_putstr_fd(flags->hex, 1);
+		}
 		if (flags->i + flags->len < flags->prec && flags->prec_bool == 1)
 			ft_putchar_fd(' ', 1);
 		else
@@ -142,6 +150,8 @@ void	write_int_big_width(t_flag *flags)
 
 void	write_int_v(t_flag *flags)
 {
+	if (flags->sign != 0 && flags->hex_bool == 1)
+		flags->i--;
 	set_sign(flags);
 	while (flags->i + flags->len < flags->highest)
 	{
@@ -155,10 +165,12 @@ void	write_int_v(t_flag *flags)
 
 void	write_before_int(t_flag *flags)
 {
+	//if (flags->conversion == 'p')
+		
 	starting_space(flags);
 	if (flags->bb_var == 1 && flags->write_left == 1)
 		write_int_left(flags);
-	else if (flags->bb_var == 1  && flags->prec_bool == 1 && flags->width_bool == 1 && flags->fit == 1)
+	else if (flags->bb_var == 1  && flags->prec_bool == 1 && flags->width_bool == 1 && flags->fit == 1 && flags->hex_bool != 1)// && flags->width > flags->len + flags->prec)
 		write_int_big_fit(flags);
 	else if (flags->bb_var == 1 && flags->width > flags->prec)
 		write_int_big_width(flags);

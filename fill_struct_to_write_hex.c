@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/05 19:05:08 by rverscho       #+#    #+#                */
-/*   Updated: 2020/01/05 20:56:31 by rverscho      ########   odam.nl         */
+/*   Updated: 2020/01/06 20:10:43 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	set_1_0_for_hex(t_flag *flags, unsigned long data)
 	flags->bool_sign = (flags->sign == '-' || flags->sign == '+') ? 1 : 0;
 	flags->fit = (flags->len > flags->prec) ? 0 : 1;
 	flags->towrite = (flags->len > flags->prec && flags->prec_bool == 1) ? ' ' : flags->towrite;
-	flags->hex = (flags->conversion == 'x') ? "0x" : "0X";
+	flags->hex = (flags->conversion == 'x' || flags->conversion == 'p') ? "0x" : "0X";
 }
 
 void	before_hex(t_flag *flags, unsigned long data)
@@ -59,27 +59,20 @@ void	write_hex_zero_prec(t_flag *flags)
 
 void	write_hex(t_flag *flags, unsigned long data)
 {
+	int i;
+
+	i = hex_length(data, 16);
 	if (flags->prec_bool == 1 && flags->prec == 0)
 		write_hex_zero_prec(flags);
-	// else if (flags->bool_sign == 1)
-	// {
-	// 	ft_putchar_fd(flags->sign, 1);
-	// 	if (data == 0)
-	// 		ft_putnbr_fd(data, 1);
-	// 	else
-	// 		ft_putstr_fd(ft_itoa_base(data, 16), 1);
-	// }
-	// else
-	// {
-		
+	else
+	{
 		if (flags->hex_bool == 1 && data > 0)
 			ft_putstr_fd(flags->hex, 1);
 		if (data == 0)
 			ft_putnbr_fd(data, 1);
 		else
-			ft_putstr_fd(ft_itoa_base(data, 16), 1);	
-	//}
-		//ft_putnbr_fd(data, 1);
+			ft_fillstring(data, 16, i, flags);
+	}
 }
 
 void	after_hex(t_flag *flags)

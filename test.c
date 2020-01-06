@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/16 13:53:24 by rverscho       #+#    #+#                */
-/*   Updated: 2020/01/05 20:55:44 by rverscho      ########   odam.nl         */
+/*   Updated: 2020/01/06 20:46:55 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,19 @@ int main ()
 	unsigned char a = '\x00';
 	int prf;
 	int ft_prf;
+
+	static char	a01;
+	static unsigned char a02;
+	static short a03;
+	static unsigned short a04;
+	static int a05;
+	static unsigned int a06;
+	static long a07;
+	static unsigned long a08;
+	static long long a09;
+	static unsigned long long a10;
+	static char *a11;
+	static void *a12;
 
 //"% 0+8.5d", 34
 
@@ -49,8 +62,29 @@ int main ()
 	// prf = printf("%#.5xx\n", 21);
 	// ft_prf = ft_printf("%#.5x", 21);
 
-	prf = printf("%#.3xi\n", 0);
-	ft_prf = ft_printf("%#.3x", 0);
+	prf = printf("%.5pi\n", 0);
+	ft_prf = ft_printf("%.5p", 0);
+
+	// printf("REAL: %d\n", printf(INPUT));
+	// printf("MINE: %d\n", ft_printf(INPUT));
+	// prf = printf("%16p%16p%16p%16p%16p%16p%16p%16p%16p%16p%16p%16p\n",&a01,&a02,&a03,&a04,&a05,&a06,&a07,&a08,&a09,&a10,&a11,&a12);
+	// ft_prf = ft_printf("%16p%16p%16p%16p%16p%16p%16p%16p%16p%16p%16p%16p",&a01,&a02,&a03,&a04,&a05,&a06,&a07,&a08,&a09,&a10,&a11,&a12);
+	// prf = printf("%9.9pi\n", 1234);
+	// ft_prf = ft_printf("%9.9p", 1234);
+
+	// prf = printf("%.3xi\n", 0);
+	// ft_prf = ft_printf("%.3x", 0);
+	// prf = printf("%#5.0xi\n", 0);
+	// ft_prf = ft_printf("%#5.0x", 0);
+	
+	
+	// prf = printf("%-#8.5xi\n", 34);
+	// ft_prf = ft_printf("%-#8.5x", 34);
+
+	// prf = printf("%+ 08.5ii\n", 34);
+	// ft_prf = ft_printf("%+ 08.5i", 34);
+
+
 
 	// prf = printf("%#.5xx\n", 21);
 	// ft_prf = ft_printf("%#.5x", 21);

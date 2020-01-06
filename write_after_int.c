@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/04 15:39:42 by rverscho       #+#    #+#                */
-/*   Updated: 2020/01/04 20:58:38 by rverscho      ########   odam.nl         */
+/*   Updated: 2020/01/06 15:19:32 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	finish_int_left(t_flag *flags)
 		flags->i++;
 	if (flags->sp_bool == 1 && flags->sign != '-' && flags->sign != '+')
 		flags->i++;
+	if (flags->hexwbool == 1) //== "0x" || flags->hex == "0X")
+		flags->i += 2;
 	while (flags->i < flags->highest)
 	{
 		ft_putchar_fd(' ', 1);

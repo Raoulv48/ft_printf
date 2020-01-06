@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/16 12:33:49 by rverscho       #+#    #+#                */
-/*   Updated: 2020/01/05 19:20:51 by rverscho      ########   odam.nl         */
+/*   Updated: 2020/01/06 19:36:44 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,23 @@ void	ft_putnbr_fd(int nb, int fd)
 	ft_putchar_fd((char)(nbr % 10 + 48), fd);
 }
 
+void	ft_putstr_fd(char *s, int fd)
+{
+	int		i;
+	char	c;
+
+	i = 0;
+	if (s != 0)
+	{
+		while (s[i] != '\0')
+		{
+			c = s[i];
+			write(fd, &c, 1);
+			i++;
+		}
+	}
+}
+
 int			ft_atoi(const char *str)
 {
 	int		i;
@@ -137,70 +154,6 @@ int			ft_atoi(const char *str)
 		i++;
 	}
 	return ((int)result * sign);
-}
-
-int		hex_length(unsigned long a, int base)
-{
-	int	i;
-
-	i = 0;
-	while (a)
-	{
-		a = a / base;
-		i++;
-	}
-	return (i);
-}
-
-static char		*ft_fillstring(char *dest, unsigned long n, int i, int base)
-{
-	unsigned long	b;
-
-	dest[i] = '\0';
-	i--;
-	while (n >= (unsigned long)base)
-	{
-		b = n % base;
-		if (b < 10)
-			dest[i] = b + 48;
-		else if (b >= 10)
-			dest[i] = b + 'a' - 10;
-		n = n / base;
-		i--;
-	}
-	if (n < 10)
-		dest[i] = n + 48;
-	else
-		dest[i] = (n + 'a' - 10);
-	return (dest);
-}
-
-char			*ft_itoa_base(unsigned long n, int base)
-{
-	char	*dest;
-
-	dest = (char*)malloc(sizeof(char) * (hex_length(n, base) + 1));
-	if (!dest)
-		return (0);
-	dest = ft_fillstring(dest, n, hex_length(n, base), base);
-	return (dest);
-}
-
-void	ft_putstr_fd(char *s, int fd)
-{
-	int		i;
-	char	c;
-
-	i = 0;
-	if (s != 0)
-	{
-		while (s[i] != '\0')
-		{
-			c = s[i];
-			write(fd, &c, 1);
-			i++;
-		}
-	}
 }
 
 char		*ft_substr(char *s, unsigned int start, size_t len)
