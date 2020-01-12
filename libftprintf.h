@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/13 15:53:32 by rverscho       #+#    #+#                */
-/*   Updated: 2020/01/06 19:29:48 by rverscho      ########   odam.nl         */
+/*   Updated: 2020/01/12 20:50:54 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,20 @@ void		ft_fillstring(unsigned long data, int base, int i, t_flag *flags);
 
 void	ft_toupper(char *str);
 void	ft_tolower(char *str);
+
+// str
+void	fill_struct_to_write_str(t_flag *flags, char *data);
+void	set_1_0_for_str(t_flag *flags, char *data);
+void	write_before_str(t_flag *flags);
+void	before_str(t_flag *flags, char *data);
+
+//conv
+void	make_no_conversion(t_flag *flags);
+
+
+
+
+
 
 // restructure
 void			width_handler_num(t_flag *flags, int data);

@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/04 12:54:42 by rverscho       #+#    #+#                */
-/*   Updated: 2020/01/06 20:57:03 by rverscho      ########   odam.nl         */
+/*   Updated: 2020/01/12 20:06:04 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,16 @@ void	set_1_0_for_int(t_flag *flags, int data)
 	flags->len = (flags->len == 0) ? flags->len + 1 : flags->len;
 	flags->len = (flags->sign != '\0') ? flags->len + 1 : flags->len;
 	//
-	flags->highest = (flags->width > flags->prec) ? flags->width : flags->prec;
+	flags->highest = (flags->width >= flags->prec) ? flags->width : flags->prec;
+	flags->highest = (flags->highest >= flags->len) ? flags->highest : flags->len;
 	flags->bb_var = (flags->highest > flags->len || flags->prec > flags->len) ? 1 : 0;
-	// if (flags->bb_var == 1)
-		flags->write_left = (flags->flag == '-') ? 1 : 0;
+	flags->write_left = (flags->flag == '-') ? 1 : 0;
 	flags->ba_var = (flags->len < flags->highest) ? 1 : 0;
 	flags->towrite = (flags->flag == '0' || flags->prec_bool == 1) ? '0' : ' ';
 	flags->bool_sign = (flags->sign == '-' || flags->sign == '+') ? 1 : 0;
-	flags->fit = (flags->len > flags->prec) ? 0 : 1;
+	flags->fit = (flags->len <= flags->prec) ? 1 : 0;
+	if (flags->sign != '\0' && flags->prec == flags->highest)
+		flags->counter++;
 	flags->towrite = (flags->len > flags->prec && flags->prec_bool == 1) ? ' ' : flags->towrite;
 }
 
@@ -53,6 +55,8 @@ void	set_sign(t_flag *flags)
 	}
 	if (flags->bool_sign)
 		ft_putchar_fd(flags->sign, 1);
+	// if (flags->bool_sign && flags->fit == 0)
+	// 	flags->counter++;
 	if (flags->flag == '0' && flags->bool_sign == 1)
 		flags->bool_sign = 0;
 	if (flags->prec_bool == 1 && flags->bool_sign == 1 && flags->fit == 0)
@@ -73,24 +77,6 @@ void	set_sign(t_flag *flags)
 		flags->bool_sign = 0;
 	}
 }
-
-// void	write_int_big_fit(t_flag *flags)
-// {
-// 	while (flags->i + flags->len < flags->highest)
-// 	{
-// 		if (flags->i == flags->width - flags->len - 2 && flags->prec_bool == 1)
-// 			set_sign(flags);
-// 		if (flags->i >= flags->width - flags->len - 2 && flags->prec_bool == 1)
-// 			ft_putchar_fd(flags->towrite, 1);
-// 		else
-// 			ft_putchar_fd(' ', 1);
-// 		// if (flags->i + flags->len <= flags->prec)
-// 		// 	ft_putchar_fd(' ', 1);
-// 		// else
-// 		// 	ft_putchar_fd(flags->towrite, 1);
-// 		flags->i++;
-// 	}
-// }
 
 void	write_int_left(t_flag *flags)
 {

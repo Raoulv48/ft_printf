@@ -1,31 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_make_s.c                                        :+:    :+:            */
+/*   make_no_converssion.c                              :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/12/20 17:41:19 by rverscho       #+#    #+#                */
-/*   Updated: 2020/01/12 14:52:22 by rverscho      ########   odam.nl         */
+/*   Created: 2020/01/12 20:45:21 by rverscho       #+#    #+#                */
+/*   Updated: 2020/01/12 21:19:51 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-void	make_s(t_flag *flags, va_list args)
+void	make_no_conversion(t_flag *flags)
 {
-	char	*data;
-	int		i;
-
-	i = 0;
-	data = va_arg(args, char *);
-	if (data == NULL)
-		data = "(null)";
-	if (flags->prec_bool != 0 || flags->width_bool != 0)
-		fill_struct_to_write_str(flags, data);
-	else
-	{
-		flags->highest = ft_strlen(data);
-		ft_putstr_fd(data, 1);
-	}
+	printf ("\n%c\n", flags->conversion);
+	//if 
 }

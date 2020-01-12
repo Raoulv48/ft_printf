@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/04 13:06:59 by rverscho       #+#    #+#                */
-/*   Updated: 2020/01/05 19:11:54 by rverscho      ########   odam.nl         */
+/*   Updated: 2020/01/12 20:21:46 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,23 +35,14 @@ void	write_var_zero_prec(t_flag *flags)
 	}
 }
 
-// void	write_var(t_flag *flags, int data)
-// {
-// 	if (flags->prec_bool == 1 && flags->prec == 0)
-// 		write_var_zero_prec(flags);
-// 	else if (flags->bool_sign == 1)
-// 	{
-// 		ft_putchar_fd(flags->sign, 1);
-// 		ft_putnbr_fd(data, 1);
-// 	}
-// 	else
-// 		ft_putnbr_fd(data, 1);
-// }
-
 void	write_var(t_flag *flags, int data)
 {
 	if (flags->prec_bool == 1 && flags->prec == 0)
+	{
 		write_var_zero_prec(flags);
+		if (data == 0 && flags->width == 0)
+			flags->highest = 0;
+	}
 	else if (flags->bool_sign == 1)
 	{
 		ft_putchar_fd(flags->sign, 1);

@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/16 12:33:49 by rverscho       #+#    #+#                */
-/*   Updated: 2020/01/06 19:36:44 by rverscho      ########   odam.nl         */
+/*   Updated: 2020/01/12 20:35:01 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,6 +215,8 @@ int		getintlen(int n)
 	int i;
 
 	i = 0;
+	if (n == -2147483648)
+		return (10);
 	if (n < 0)
 	{
 		n = n * -1;
