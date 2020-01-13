@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/06 17:52:22 by rverscho       #+#    #+#                */
-/*   Updated: 2020/01/13 15:55:30 by rverscho      ########   odam.nl         */
+/*   Updated: 2020/01/13 20:30:51 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,5 +87,7 @@ void	ft_tolower(char *str, t_flag *flags)
 			str[i] += 32;
 		i++;
 	}
+	if (flags->convr == 'p' && flags->hexwbool == 1)
+		flags->high += 2;
 	ft_putstr_fd(str, 1, flags);
 }

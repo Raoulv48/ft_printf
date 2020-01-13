@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/16 13:53:24 by rverscho       #+#    #+#                */
-/*   Updated: 2020/01/13 19:31:39 by rverscho      ########   odam.nl         */
+/*   Updated: 2020/01/13 20:36:44 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,23 @@ int main ()
 
 
 
-	prf = printf("%.3p", NULL);
+	// prf = printf("%2.p", NULL);
+	// printf("%d\n", prf);
+	// ft_prf = ft_printf("%2.p", NULL);
+	// printf("%i\n", ft_prf);
+	// prf = printf("%2.p", NULL);
+	// printf("%d\n", prf);
+	// ft_prf = ft_printf("%2.p", NULL);
+	// printf("%i\n", ft_prf);
+	
+	// prf = printf("%2.9p", 1234);
+	// printf("%d\n", prf);
+	// ft_prf = ft_printf("%2.9p", 1234);
+	// printf("%i\n", ft_prf);
+
+	prf = printf("%5.p", 0);
 	printf("%d\n", prf);
-	ft_prf = ft_printf("%.3p", NULL);
+	ft_prf = ft_printf("%5.p", 0);
 	printf("%i\n", ft_prf);
 
 	// prf = printf("%u\n", 4294967295u);

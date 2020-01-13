@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/05 19:05:08 by rverscho       #+#    #+#                */
-/*   Updated: 2020/01/13 19:02:14 by rverscho      ########   odam.nl         */
+/*   Updated: 2020/01/13 20:38:01 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,9 @@ void	write_hex_zero_prec(t_flag *flags)
 	}
 	else if (flags->flag != '-')
 	{
-		if (flags->width > 0)
+		if (flags->width > 0 && flags->convr != 'p')
+			ft_putchar_fd(' ', 1, flags);
+		if (flags->width > flags->len && flags->convr == 'p')// && flags->prec_bool == 0)
 			ft_putchar_fd(' ', 1, flags);
 		if (flags->bool_sign == 1)
 			ft_putchar_fd(flags->sign, 1, flags);
@@ -109,12 +111,14 @@ void	fill_struct_to_write_hex(t_flag *flags, unsigned long data)
 		write_after_int(flags);
 	if (data == 0)
 	{
-		if (flags->width > 0 || flags->prec > 0)
+		if (flags->hexwbool == 1 && flags->prec_bool == 1 && flags->width_bool == 0)
+			flags->high += 2;
+		else if (flags->width > 0 || flags->prec > 0)
 			flags->high = flags->high;
 		else if (flags->printed == 1 && flags->hexwbool == 0)
 			flags->high = 1;
-		else if (flags->hexwbool == 1 && flags->prec_bool == 1)
-			flags->high += 2;
+		// else if (flags->hexwbool == 1 && flags->prec_bool == 1)
+		// 	flags->high += 2;
 		else if (flags->printed == 0)
 			flags->high = 0;
 	}

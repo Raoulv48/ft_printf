@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/04 12:54:42 by rverscho       #+#    #+#                */
-/*   Updated: 2020/01/13 19:33:59 by rverscho      ########   odam.nl         */
+/*   Updated: 2020/01/13 20:11:49 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,8 @@ void	write_before_int(t_flag *flags)
 		write_int_big_fit(flags);
 	else if (flags->bb_var == 1 && flags->width > flags->prec)
 		write_int_big_width(flags);
-	else if (flags->bb_var == 1 || flags->convr == 'p')//added p
+	else if (flags->bb_var == 1)
 		write_int_v(flags);
+	// else if (flags->convr == 'p')
+	// 	write_int_v(flags);
 }
