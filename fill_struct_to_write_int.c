@@ -6,11 +6,31 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/04 13:06:59 by rverscho       #+#    #+#                */
-/*   Updated: 2020/01/13 15:30:33 by rverscho      ########   odam.nl         */
+/*   Updated: 2020/01/13 17:01:46 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
+
+void	set_1_0_for_int(t_flag *flags, int data)
+{
+	flags->len = getintlen(data);
+	flags->len = (flags->len == 0) ? flags->len + 1 : flags->len;
+	flags->len = (flags->sign != '\0') ? flags->len + 1 : flags->len;
+	flags->high = (flags->width >= flags->prec) ? flags->width : flags->prec;
+	flags->high = (flags->high >= flags->len) ? flags->high : flags->len;
+	flags->bb_var = (flags->high > flags->len ||
+		flags->prec > flags->len) ? 1 : 0;
+	flags->write_left = (flags->flag == '-') ? 1 : 0;
+	flags->ba_var = (flags->len < flags->high) ? 1 : 0;
+	flags->towrite = (flags->flag == '0' || flags->prec_bool == 1) ? '0' : ' ';
+	flags->bool_sign = (flags->sign == '-' || flags->sign == '+') ? 1 : 0;
+	flags->fit = (flags->len <= flags->prec) ? 1 : 0;
+	if (flags->sign != '\0' && flags->prec == flags->high)
+		flags->counter++;
+	flags->towrite = (flags->len > flags->prec && flags->prec_bool == 1)
+		? ' ' : flags->towrite;
+}
 
 void	before_var(t_flag *flags, int data)
 {
@@ -41,7 +61,7 @@ void	write_var(t_flag *flags, int data)
 	{
 		write_var_zero_prec(flags);
 		if (data == 0 && flags->width == 0)
-			flags->highest = 0;
+			flags->high = 0;
 	}
 	else if (flags->bool_sign == 1)
 	{
@@ -52,14 +72,10 @@ void	write_var(t_flag *flags, int data)
 		ft_putnbr_fd(data, 1, flags);
 }
 
-void	after_var(t_flag *flags)
-{
-	write_after_int(flags);
-}
-
 void	fill_struct_to_write_int(t_flag *flags, int data)
 {
 	before_var(flags, data);
 	write_var(flags, data);
-	after_var(flags);
+	if (flags->ba_var == 1 && flags->write_left == 1)
+		write_after_int(flags);
 }

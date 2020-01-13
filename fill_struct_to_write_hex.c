@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/05 19:05:08 by rverscho       #+#    #+#                */
-/*   Updated: 2020/01/13 15:29:19 by rverscho      ########   odam.nl         */
+/*   Updated: 2020/01/13 17:05:03 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,24 +17,21 @@ void	set_1_0_for_hex(t_flag *flags, unsigned long data)
 	flags->len = hex_length(data, 16);
 	flags->len = (flags->len == 0) ? flags->len + 1 : flags->len;
 	flags->len = (flags->sign != '\0') ? flags->len + 1 : flags->len;
-	flags->len = (flags->hex_bool == 1 && hex_length(data, 16) > 0) ? flags->len += 2 : flags->len;
-	flags->hex_bool = (data > 0) ? flags->hex_bool : 0 ;
-	flags->highest = (flags->width >= flags->prec) ? flags->width : flags->prec;
-	flags->highest = (flags->highest >= flags->len) ? flags->highest : flags->len;
-	flags->bb_var = (flags->highest > flags->len || flags->prec > flags->len) ? 1 : 0;
+	flags->len = (flags->hex_bool == 1 && hex_length(data, 16) > 0)
+		? flags->len += 2 : flags->len;
+	flags->hex_bool = (data > 0) ? flags->hex_bool : 0;
+	flags->high = (flags->width >= flags->prec) ? flags->width : flags->prec;
+	flags->high = (flags->high >= flags->len) ? flags->high : flags->len;
+	flags->bb_var = (flags->high > flags->len || flags->prec > flags->len)
+		? 1 : 0;
 	flags->write_left = (flags->flag == '-') ? 1 : 0;
-	flags->ba_var = (flags->len < flags->highest) ? 1 : 0;
+	flags->ba_var = (flags->len < flags->high) ? 1 : 0;
 	flags->towrite = (flags->flag == '0' || flags->prec_bool == 1) ? '0' : ' ';
 	flags->bool_sign = (flags->sign == '-' || flags->sign == '+') ? 1 : 0;
 	flags->fit = (flags->len > flags->prec) ? 0 : 1;
-	flags->towrite = (flags->len > flags->prec && flags->prec_bool == 1) ? ' ' : flags->towrite;
-	flags->hex = (flags->conversion == 'x' || flags->conversion == 'p') ? "0x" : "0X";
-}
-
-void	before_hex(t_flag *flags, unsigned long data)
-{
-	set_1_0_for_hex(flags, data);
-	write_before_int(flags);
+	flags->towrite = (flags->len > flags->prec && flags->prec_bool == 1)
+		? ' ' : flags->towrite;
+	flags->hex = (flags->convr == 'x' || flags->convr == 'p') ? "0x" : "0X";
 }
 
 void	write_hex_zero_prec(t_flag *flags)
@@ -75,26 +72,37 @@ void	write_hex(t_flag *flags, unsigned long data)
 	}
 }
 
-void	after_hex(t_flag *flags)
+void	write_after_int(t_flag *flags)
 {
-	write_after_int(flags);
+	flags->i = (flags->len > flags->prec) ? flags->len : flags->prec;
+	if (flags->sign != '\0' && flags->width > flags->prec && flags->prec_bool
+		&& flags->fit == 1)
+		flags->i++;
+	if (flags->sp_bool == 1 && flags->sign != '-' && flags->sign != '+')
+		flags->i++;
+	if (flags->hexwbool == 1)
+		flags->i += 2;
+	while (flags->i < flags->high)
+	{
+		ft_putchar_fd(' ', 1, flags);
+		flags->i++;
+	}
 }
 
 void	fill_struct_to_write_hex(t_flag *flags, unsigned long data)
 {
-	before_hex(flags, data);
-	// if (flags->conversion == 'u')
-	// 	ft_putnbr_fd(data, 1);
-	// else
-		write_hex(flags, data);
-	after_hex(flags);
+	set_1_0_for_hex(flags, data);
+	write_before_int(flags);
+	write_hex(flags, data);
+	if (flags->ba_var == 1 && flags->write_left == 1)
+		write_after_int(flags);
 	if (data == 0)
 	{
 		if (flags->width > 0 || flags->prec > 0)
-			flags->highest = flags->highest;
+			flags->high = flags->high;
 		else if (flags->printed == 1)
-			flags->highest = 1;
+			flags->high = 1;
 		else
-			flags->highest = 0;
+			flags->high = 0;
 	}
 }

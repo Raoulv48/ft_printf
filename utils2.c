@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/06 17:52:22 by rverscho       #+#    #+#                */
-/*   Updated: 2020/01/13 15:32:47 by rverscho      ########   odam.nl         */
+/*   Updated: 2020/01/13 15:55:30 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int		ft_fillstring(unsigned long data, int base, int i, t_flag *flags)
 		dest[i] = data + 48;
 	else
 		dest[i] = (data + 'a' - 10);
-	write_hex_str(dest, flags->conversion, flags);
+	write_hex_str(dest, flags->convr, flags);
 	free(dest);
 	return (1);
 }

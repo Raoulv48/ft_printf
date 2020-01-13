@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/01 14:52:32 by rverscho       #+#    #+#                */
-/*   Updated: 2020/01/13 15:48:30 by rverscho      ########   odam.nl         */
+/*   Updated: 2020/01/13 15:55:30 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,25 @@
 
 void	write_de_moeder(t_flag *flags, va_list args)
 {
-	if (flags->conversion == 'c')
+	if (flags->convr == 'c')
 		make_c(flags, args);
-	else if (flags->conversion == 's')
+	else if (flags->convr == 's')
 		make_s(flags, args);
-	else if (flags->conversion == 'p')
+	else if (flags->convr == 'p')
 		make_p(flags, args);
-	else if (flags->conversion == 'i')
+	else if (flags->convr == 'i')
 		make_i(flags, args);
-	else if (flags->conversion == 'd')
+	else if (flags->convr == 'd')
 		make_d(flags, args);
-	else if (flags->conversion == 'u')
+	else if (flags->convr == 'u')
 		make_u(flags, args);
-	else if (flags->conversion == 'x')
+	else if (flags->convr == 'x')
 		make_x(flags, args);
-	else if (flags->conversion == 'X')
+	else if (flags->convr == 'X')
 		make_xx(flags, args);
-	else if (flags->conversion != '\0')
+	else if (flags->convr != '\0')
 		make_no_conversion(flags);
-	else if (flags->conversion == '\0')
+	else if (flags->convr == '\0')
 		flags->error = -1;
 }
 

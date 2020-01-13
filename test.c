@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/16 13:53:24 by rverscho       #+#    #+#                */
-/*   Updated: 2020/01/13 14:48:17 by rverscho      ########   odam.nl         */
+/*   Updated: 2020/01/13 17:11:46 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,18 @@ int main ()
 	// printf("i\n");
 	// printf("%i\n", ft_prf);
 
+	prf = printf("%-16s", "nark nark");
+	printf("%d\n", prf);
+	ft_prf = ft_printf("%-16s", "nark nark");
+	printf("%i\n", ft_prf);
 
 
-	prf = printf("%u\n", 4294967295u);
-	ft_prf = ft_printf("%u\n", 4294967295u);
 
-	prf = printf("%-3.7u\n", 3267);
-	ft_prf = ft_printf("%-3.7u", 3267);
+	// prf = printf("%u\n", 4294967295u);
+	// ft_prf = ft_printf("%u\n", 4294967295u);
+
+	// prf = printf("%-3.7u\n", 3267);
+	// ft_prf = ft_printf("%-3.7u", 3267);
 
 	// prf = printf("%3.7ii\n", -2375);
 	// ft_prf = ft_printf("%3.7i", -2375);
@@ -269,11 +274,6 @@ int main ()
 	
 //	prf = printf("%3c%4c%1c\n",'"','#','$');
 //	ft_prf = ft_printf("%3c%4c%1c",'"','#','$');
-
-
-	//printf("%d\n", prf);
-	// printf("i\n");
-	// printf("%i\n", ft_prf);
 
 
 	// prf = printf("%+- 06.04s", s_hidden);

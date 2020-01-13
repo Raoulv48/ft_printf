@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/12 14:34:33 by rverscho       #+#    #+#                */
-/*   Updated: 2020/01/13 15:33:52 by rverscho      ########   odam.nl         */
+/*   Updated: 2020/01/13 17:17:59 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,23 +33,20 @@ void	write_str(t_flag *flags, char *data)
 
 void	finish_str_left(t_flag *flags)
 {
-	flags->i = flags->len;
-	while (flags->i < flags->highest)
-	{
-		ft_putchar_fd(flags->towrite, 1, flags);
-		flags->i++;
-	}
-}
-
-void	after_str(t_flag *flags)
-{
 	if (flags->ba_var == 1 && flags->write_left == 1)
-		finish_str_left(flags);
+	{
+		flags->i = flags->len;
+		while (flags->i < flags->high)
+		{
+			ft_putchar_fd(flags->towrite, 1, flags);
+			flags->i++;
+		}
+	}
 }
 
 void	fill_struct_to_write_str(t_flag *flags, char *data)
 {
 	before_str(flags, data);
 	write_str(flags, data);
-	after_str(flags);
+	finish_str_left(flags);
 }
