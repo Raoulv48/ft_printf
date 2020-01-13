@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/16 13:04:01 by rverscho       #+#    #+#                */
-/*   Updated: 2020/01/12 21:19:30 by rverscho      ########   odam.nl         */
+/*   Updated: 2020/01/13 13:07:51 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,12 @@ void	ft_main_flag_hand(char *str, t_flag *flags, va_list args)
 {
 	flags->index++;
 	ft_flag_handeler(str, flags, args);
-	write_de_moeder(flags, args);//for printable not conversion, if not printable stop
-	//flags->highest = (flags->width > flags->prec) ? flags->width : flags->prec;
-	flags->counter = flags->counter + flags->highest;
+	if (flags->conversion != '\0')
+	{
+		write_de_moeder(flags, args);
+		flags->counter = flags->counter + flags->highest;
+	}
+	else
+		flags->index = ft_strlen(str);
 	flags = empty_flag(flags);
 }
-

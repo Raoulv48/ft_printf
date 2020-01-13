@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/20 17:41:06 by rverscho       #+#    #+#                */
-/*   Updated: 2020/01/12 17:38:41 by rverscho      ########   odam.nl         */
+/*   Updated: 2020/01/13 15:27:01 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,23 +17,23 @@ void	add_spacing_char(t_flag *flags, int data)
 	if (flags->sp_bool == 1 && flags->sign != '-' && flags->sign != '+')
 	{
 		flags->i++;
-		ft_putchar_fd(' ', 1);
+		ft_putchar_fd(' ', 1, flags);
 	}
 	if (flags->width_bool == 1 && flags->flag != '-')
 	{
 		while (flags->width > flags->i + 1)
 		{
-			ft_putchar_fd(flags->towrite, 1);
+			ft_putchar_fd(flags->towrite, 1, flags);
 			flags->i++;
 		}
-		ft_putchar_fd(data, 1);
+		ft_putchar_fd(data, 1, flags);
 	}
 	else if (flags->width_bool == 1 && flags->flag == '-')
 	{
-		ft_putchar_fd(data, 1);
+		ft_putchar_fd(data, 1, flags);
 		while (flags->width > flags->i + 1)
 		{
-			ft_putchar_fd(flags->towrite, 1);
+			ft_putchar_fd(flags->towrite, 1, flags);
 			flags->i++;
 		}
 	}
@@ -52,7 +52,7 @@ void	make_c(t_flag *flags, va_list args)
 	}
 	else
 	{
-		ft_putchar_fd(data, 1);
+		ft_putchar_fd(data, 1, flags);
 		flags->highest++;
 	}
 }

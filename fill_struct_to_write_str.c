@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/12 14:34:33 by rverscho       #+#    #+#                */
-/*   Updated: 2020/01/12 16:12:54 by rverscho      ########   odam.nl         */
+/*   Updated: 2020/01/13 15:33:52 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	write_str(t_flag *flags, char *data)
 	i = 0;
 	while (i < flags->len)
 	{
-		ft_putchar_fd(data[i], 1);
+		ft_putchar_fd(data[i], 1, flags);
 		i++;
 	}
 }
@@ -36,7 +36,7 @@ void	finish_str_left(t_flag *flags)
 	flags->i = flags->len;
 	while (flags->i < flags->highest)
 	{
-		ft_putchar_fd(flags->towrite, 1);
+		ft_putchar_fd(flags->towrite, 1, flags);
 		flags->i++;
 	}
 }

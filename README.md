@@ -1,3 +1,3 @@
 # ft_printf
 # TO_DO
-before i added all spacing
+add printable, of not do nothing

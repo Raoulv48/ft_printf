@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/16 12:33:49 by rverscho       #+#    #+#                */
-/*   Updated: 2020/01/12 20:35:01 by rverscho      ########   odam.nl         */
+/*   Updated: 2020/01/13 15:28:47 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,6 @@ int		is_precision(const char *str, int i)
 	return (0);
 }
 
-void	ft_putchar_fd(char c, int fd)
-{
-	write(fd, &c, 1);
-}
 
 int		iswhitespace(const char *str, int i)
 {
@@ -86,7 +82,7 @@ int		iswhitespace(const char *str, int i)
 
 void	starting_space(t_flag *flags)
 {
-	if (flags->sp_bool == 1 && flags->sign != '-' && flags->sign != '+')//maybe remove bool
+	if (flags->sp_bool == 1 && flags->sign != '-' && flags->sign != '+')
 	{
 		if (flags->len > flags->prec && flags->flag != '0')
 			flags->i++;
@@ -94,11 +90,16 @@ void	starting_space(t_flag *flags)
 			flags->i++;
 		else if (flags->flag != '-' && flags->width > flags->prec)
 			flags->i++;
-		ft_putchar_fd(' ', 1);
+		ft_putchar_fd(' ', 1, flags);
 	}
 }
 
-void	ft_putnbr_fd(int nb, int fd)
+void	ft_putchar_fd(char c, int fd, t_flag *flags)
+{
+	flags->error = write(fd, &c, 1);
+}
+
+void	ft_putnbr_fd(unsigned int nb, int fd, t_flag *flags)
 {
 	unsigned int	nbr;
 
@@ -107,11 +108,11 @@ void	ft_putnbr_fd(int nb, int fd)
 	else
 		nbr = (unsigned int)nb;
 	if (nbr >= 10)
-		ft_putnbr_fd(nbr / 10, fd);
-	ft_putchar_fd((char)(nbr % 10 + 48), fd);
+		ft_putnbr_fd(nbr / 10, fd, flags);
+	ft_putchar_fd((char)(nbr % 10 + 48), fd, flags);
 }
 
-void	ft_putstr_fd(char *s, int fd)
+void	ft_putstr_fd(char *s, int fd, t_flag *flags)
 {
 	int		i;
 	char	c;
@@ -119,22 +120,22 @@ void	ft_putstr_fd(char *s, int fd)
 	i = 0;
 	if (s != 0)
 	{
-		while (s[i] != '\0')
+		while (s[i] != '\0' && flags->error != -1)
 		{
 			c = s[i];
-			write(fd, &c, 1);
+			flags->error = write(fd, &c, 1);
 			i++;
 		}
 	}
 }
 
-int			ft_atoi(const char *str)
+int			ft_atoi(const char *str, int start)
 {
 	int		i;
 	long	result;
 	int		sign;
 
-	i = 0;
+	i = start;
 	result = 0;
 	while (iswhitespace(str, i) == 1)
 		i++;
@@ -154,28 +155,6 @@ int			ft_atoi(const char *str)
 		i++;
 	}
 	return ((int)result * sign);
-}
-
-char		*ft_substr(char *s, unsigned int start, size_t len)
-{
-	char	*substr;
-	size_t	i;
-
-	if (ft_strlen(s) < len)
-		substr = malloc(sizeof(char) * (ft_strlen(s)) + 1);
-	else
-		substr = malloc(sizeof(char) * (len) + 1);
-	if (!substr)
-		return (0);
-	i = 0;
-	while (i < len && s[start])
-	{
-		substr[i] = s[start];
-		i++;
-		start++;
-	}
-	substr[i] = '\0';
-	return (substr);
 }
 
 size_t	ft_strlen(const char *str)
@@ -210,13 +189,13 @@ size_t	ft_intlen(const char *str)
 	return (len);
 }
 
-int		getintlen(int n)
+int		getintlen(unsigned int n)
 {
 	int i;
 
 	i = 0;
-	if (n == -2147483648)
-		return (10);
+	// if (n == -2147483648)
+	// 	return (10);
 	if (n < 0)
 	{
 		n = n * -1;

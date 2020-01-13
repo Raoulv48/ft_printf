@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/04 13:06:59 by rverscho       #+#    #+#                */
-/*   Updated: 2020/01/12 20:21:46 by rverscho      ########   odam.nl         */
+/*   Updated: 2020/01/13 15:30:33 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,15 @@ void	write_var_zero_prec(t_flag *flags)
 	if (flags->flag == '-')
 	{
 		if (flags->bool_sign == 1)
-			ft_putchar_fd(flags->sign, 1);
-		ft_putchar_fd(' ', 1);
+			ft_putchar_fd(flags->sign, 1, flags);
+		ft_putchar_fd(' ', 1, flags);
 	}
 	else if (flags->flag != '-')
 	{
 		if (flags->width > 0)
-			ft_putchar_fd(' ', 1);
+			ft_putchar_fd(' ', 1, flags);
 		if (flags->bool_sign == 1)
-			ft_putchar_fd(flags->sign, 1);
+			ft_putchar_fd(flags->sign, 1, flags);
 	}
 }
 
@@ -45,11 +45,11 @@ void	write_var(t_flag *flags, int data)
 	}
 	else if (flags->bool_sign == 1)
 	{
-		ft_putchar_fd(flags->sign, 1);
-		ft_putnbr_fd(data, 1);
+		ft_putchar_fd(flags->sign, 1, flags);
+		ft_putnbr_fd(data, 1, flags);
 	}
 	else
-		ft_putnbr_fd(data, 1);
+		ft_putnbr_fd(data, 1, flags);
 }
 
 void	after_var(t_flag *flags)

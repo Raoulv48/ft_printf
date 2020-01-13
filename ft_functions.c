@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/16 18:34:16 by rverscho       #+#    #+#                */
-/*   Updated: 2020/01/12 21:19:13 by rverscho      ########   odam.nl         */
+/*   Updated: 2020/01/13 13:38:34 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,9 @@ void	set_width(char *str, t_flag *flags, va_list args)
 		start = flags->index;
 		while (is_num(str, flags->index))
 			flags->index++;
-		flags->width = ft_atoi(ft_substr(str, start, flags->index));
+		flags->width = ft_atoi(str, start);
 	}
-	//if (flags->width != 0)
-		flags->width_bool = 1;
+	flags->width_bool = 1;
 }
 
 void	set_precision(char *str, t_flag *flags, va_list args)
@@ -80,7 +79,7 @@ void	set_precision(char *str, t_flag *flags, va_list args)
 		start = flags->index;
 		while (is_num(str, flags->index))
 			flags->index++;
-		flags->prec = ft_atoi(ft_substr(str, start, flags->index));
+		flags->prec = ft_atoi(str, start);
 	}
 	if (flags->prec >= 0)
 		flags->prec_bool = 1;
@@ -98,5 +97,4 @@ void	set_specifier(char *str, t_flag *flags)
 			flags->conversion = str[flags->index];
 	}
 	flags->index++;
-	//add printrable
 }

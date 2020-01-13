@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/20 17:41:19 by rverscho       #+#    #+#                */
-/*   Updated: 2020/01/12 14:52:22 by rverscho      ########   odam.nl         */
+/*   Updated: 2020/01/13 15:27:23 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,6 @@ void	make_s(t_flag *flags, va_list args)
 	else
 	{
 		flags->highest = ft_strlen(data);
-		ft_putstr_fd(data, 1);
+		ft_putstr_fd(data, 1, flags);
 	}
 }

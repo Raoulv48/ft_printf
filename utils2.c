@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/06 17:52:22 by rverscho       #+#    #+#                */
-/*   Updated: 2020/01/06 19:58:19 by rverscho      ########   odam.nl         */
+/*   Updated: 2020/01/13 15:32:47 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,22 @@ int		hex_length(unsigned long a, int base)
 	return (i);
 }
 
-void		ft_fillstring(unsigned long data, int base, int i, t_flag *flags)
+void	write_hex_str(char *str, char c, t_flag *flags)
+{
+	if (c == 'x' || c == 'p')
+		ft_tolower(str, flags);
+	if (c == 'X')
+		ft_toupper(str, flags);
+}
+
+int		ft_fillstring(unsigned long data, int base, int i, t_flag *flags)
 {
 	unsigned long	b;
-	char			dest[i];
+	char			*dest;
 
+	dest = malloc(sizeof(char) * i + 1);
+	if (!dest)
+		return (0);
 	dest[i] = '\0';
 	i--;
 	while (data >= (unsigned long)base)
@@ -46,13 +57,12 @@ void		ft_fillstring(unsigned long data, int base, int i, t_flag *flags)
 		dest[i] = data + 48;
 	else
 		dest[i] = (data + 'a' - 10);
-	if (flags->conversion == 'x' || flags->conversion == 'p')
-		ft_tolower(dest);
-	if (flags->conversion == 'X')
-		ft_toupper(dest);
+	write_hex_str(dest, flags->conversion, flags);
+	free(dest);
+	return (1);
 }
 
-void	ft_toupper(char *str)
+void	ft_toupper(char *str, t_flag *flags)
 {
 	int i;
 
@@ -63,10 +73,10 @@ void	ft_toupper(char *str)
 			str[i] -= 32;
 		i++;
 	}
-	ft_putstr_fd(str, 1);
+	ft_putstr_fd(str, 1, flags);
 }
 
-void	ft_tolower(char *str)
+void	ft_tolower(char *str, t_flag *flags)
 {
 	int i;
 
@@ -77,5 +87,5 @@ void	ft_tolower(char *str)
 			str[i] += 32;
 		i++;
 	}
-	ft_putstr_fd(str, 1);
+	ft_putstr_fd(str, 1, flags);
 }

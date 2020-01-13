@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/13 15:53:32 by rverscho       #+#    #+#                */
-/*   Updated: 2020/01/12 20:50:54 by rverscho      ########   odam.nl         */
+/*   Updated: 2020/01/13 15:33:30 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct	s_flag
 	int			len;
 	char		towrite;
 	t_bool		fit;
+	t_bool		error;
 	//
 }				t_flag;
 
@@ -64,10 +65,10 @@ void	set_1_0_for_int(t_flag *fags, int data);
 void	fill_struct_to_write_hex(t_flag *flags, unsigned long data);
 int		hex_length(unsigned long a, int base);
 
-void		ft_fillstring(unsigned long data, int base, int i, t_flag *flags);
+int		ft_fillstring(unsigned long data, int base, int i, t_flag *flags);
 
-void	ft_toupper(char *str);
-void	ft_tolower(char *str);
+void	ft_toupper(char *str, t_flag *flags);
+void	ft_tolower(char *str, t_flag *flags);
 
 // str
 void	fill_struct_to_write_str(t_flag *flags, char *data);
@@ -130,18 +131,17 @@ void			precision_handler_num(t_flag *flags, int data);
 void			width_handler_str(t_flag *flags, char *data);
 void			width_handler_num(t_flag *flags, int data);
 
-void			ft_putchar_fd(char c, int fd);
+void			ft_putchar_fd(char c, int fd, t_flag *flags);
+void			ft_putnbr_fd(unsigned int nb, int fd, t_flag *flags);
+void			ft_putstr_fd(char *s, int fd, t_flag *flags);
 int				ft_printf(const char *str, ...);
 
 void			ft_main_flag_hand(char *str, t_flag *flags, va_list args);
 void			ft_flag_handeler(char *str, t_flag *flags, va_list args);
 
 void	starting_space(t_flag *flags);
-void			ft_putnbr_fd(int nb, int fd);
-int				ft_atoi(const char *str);
+int				ft_atoi(const char *str, int start);
 char			*ft_itoa_base(unsigned long n, int base);
-char			*ft_substr(char *s, unsigned int start, size_t len);
-void			ft_putstr_fd(char *s, int fd);
 size_t			ft_intlen(const char *str);
 size_t			ft_strlen(const char *str);
 
@@ -156,7 +156,7 @@ void			make_xx(t_flag *flags, va_list args);
 
 void			write_de_moeder(t_flag *flags, va_list args);
 
-int				getintlen(int n);
+int				getintlen(unsigned int n);
 
 int				iswhitespace(const char *str, int i);
 int				is_specifier(const char *str, int i);
