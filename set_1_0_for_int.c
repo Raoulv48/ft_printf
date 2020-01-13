@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/04 12:54:42 by rverscho       #+#    #+#                */
-/*   Updated: 2020/01/13 17:01:48 by rverscho      ########   odam.nl         */
+/*   Updated: 2020/01/13 19:33:59 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,13 @@ void	write_int_big_width(t_flag *flags)
 			set_sign(flags);
 		else if (flags->flag == '0' && flags->prec_bool == 0)
 			set_sign(flags);
+		// else if (flags->convr == 'p' && flags->i + flags->len + 2 == flags->width)
+		// {
+		// 	//flags->i += 2;
+		// 	set_sign(flags);
+		// 	if (flags->i + flags->len == flags->width)
+		// 		break ;
+		// }
 		else if (flags->hex_bool == 1 && flags->i + flags->len == flags->prec)
 		{
 			flags->hex_bool = 0;
@@ -94,6 +101,6 @@ void	write_before_int(t_flag *flags)
 		write_int_big_fit(flags);
 	else if (flags->bb_var == 1 && flags->width > flags->prec)
 		write_int_big_width(flags);
-	else if (flags->bb_var == 1)
+	else if (flags->bb_var == 1 || flags->convr == 'p')//added p
 		write_int_v(flags);
 }

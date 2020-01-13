@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/16 13:53:24 by rverscho       #+#    #+#                */
-/*   Updated: 2020/01/13 17:11:46 by rverscho      ########   odam.nl         */
+/*   Updated: 2020/01/13 19:31:39 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,16 @@ int main ()
 	static unsigned long long a10;
 	static char *a11;
 	static void *a12;
+//not fixed yet
+	// prf = printf("%6.2p", NULL);
+	// printf("%d\n", prf);
+	// ft_prf = ft_printf("%6.2p", NULL);
+	// printf("%i\n", ft_prf);
+
+
+
+
+
 
 	// prf = printf("%-5");
 	// printf("i\n");
@@ -53,12 +63,23 @@ int main ()
 	// printf("i\n");
 	// printf("%i\n", ft_prf);
 
-	prf = printf("%-16s", "nark nark");
+
+	// prf = printf("%16p%16p%16p%16p%16p%16p%16p%16p%16p%16p%16p%16p",&a01,&a02,&a03,&a04,&a05,&a06,&a07,&a08,&a09,&a10,&a11,&a12);
+	// printf("%d\n", prf);
+	// ft_prf = ft_printf("%16p%16p%16p%16p%16p%16p%16p%16p%16p%16p%16p%16p",&a01,&a02,&a03,&a04,&a05,&a06,&a07,&a08,&a09,&a10,&a11,&a12);
+	// printf("%i\n", ft_prf);
+
+	// prf = printf("%5p", NULL);
+	// printf("%d\n", prf);
+	// ft_prf = ft_printf("%5p", NULL);
+	// printf("%i\n", ft_prf);
+
+
+
+	prf = printf("%.3p", NULL);
 	printf("%d\n", prf);
-	ft_prf = ft_printf("%-16s", "nark nark");
+	ft_prf = ft_printf("%.3p", NULL);
 	printf("%i\n", ft_prf);
-
-
 
 	// prf = printf("%u\n", 4294967295u);
 	// ft_prf = ft_printf("%u\n", 4294967295u);

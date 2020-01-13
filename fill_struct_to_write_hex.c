@@ -6,7 +6,7 @@
 /*   By: rverscho <rverscho@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/05 19:05:08 by rverscho       #+#    #+#                */
-/*   Updated: 2020/01/13 17:05:03 by rverscho      ########   odam.nl         */
+/*   Updated: 2020/01/13 19:02:14 by rverscho      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ void	set_1_0_for_hex(t_flag *flags, unsigned long data)
 	flags->len = hex_length(data, 16);
 	flags->len = (flags->len == 0) ? flags->len + 1 : flags->len;
 	flags->len = (flags->sign != '\0') ? flags->len + 1 : flags->len;
-	flags->len = (flags->hex_bool == 1 && hex_length(data, 16) > 0)
+	flags->len = (flags->hex_bool == 1 && flags->len > 0)
 		? flags->len += 2 : flags->len;
-	flags->hex_bool = (data > 0) ? flags->hex_bool : 0;
+	flags->hex_bool = (data > 0 || flags->convr == 'p') ? flags->hex_bool : 0;
 	flags->high = (flags->width >= flags->prec) ? flags->width : flags->prec;
 	flags->high = (flags->high >= flags->len) ? flags->high : flags->len;
 	flags->bb_var = (flags->high > flags->len || flags->prec > flags->len)
@@ -48,6 +48,12 @@ void	write_hex_zero_prec(t_flag *flags)
 			ft_putchar_fd(' ', 1, flags);
 		if (flags->bool_sign == 1)
 			ft_putchar_fd(flags->sign, 1, flags);
+		else if (flags->hex_bool == 1)
+		{
+			flags->hexwbool = 1;
+			flags->high = (flags->width > 0) ? flags->width : 0;
+			ft_putstr_fd(flags->hex, 1, flags);
+		}
 	}
 }
 
@@ -64,6 +70,11 @@ void	write_hex(t_flag *flags, unsigned long data)
 			ft_putstr_fd(flags->hex, 1, flags);
 		if (data == 0)
 		{
+			if (flags->hex_bool == 1)
+			{
+				ft_putstr_fd(flags->hex, 1, flags);
+				flags->hexwbool = 1;
+			}
 			ft_putnbr_fd(data, 1, flags);
 			flags->printed = 1;
 		}
@@ -100,9 +111,11 @@ void	fill_struct_to_write_hex(t_flag *flags, unsigned long data)
 	{
 		if (flags->width > 0 || flags->prec > 0)
 			flags->high = flags->high;
-		else if (flags->printed == 1)
+		else if (flags->printed == 1 && flags->hexwbool == 0)
 			flags->high = 1;
-		else
+		else if (flags->hexwbool == 1 && flags->prec_bool == 1)
+			flags->high += 2;
+		else if (flags->printed == 0)
 			flags->high = 0;
 	}
 }
